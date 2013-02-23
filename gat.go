@@ -9,23 +9,21 @@ import (
     "os"
     "path/filepath"
     "strings"
-    "sync"
 )
 
 type RecursiveWatcher struct {
     *fsnotify.Watcher
-    folders     []string
-    folderMutex sync.RWMutex
 }
 
 func NewRecurisveWatcher(path string) (*RecursiveWatcher, error) {
-    watcher, err := fsnotify.NewWatcher()
-    if err != nil {
-        return nil, err
-    }
     folders := Subfolders(path)
     if len(folders) == 0 {
         return nil, errors.New("No folders to watch.")
+    }
+
+    watcher, err := fsnotify.NewWatcher()
+    if err != nil {
+        return nil, err
     }
     rw := &RecursiveWatcher{Watcher: watcher}
 
@@ -35,53 +33,12 @@ func NewRecurisveWatcher(path string) (*RecursiveWatcher, error) {
     return rw, nil
 }
 
-func (watcher *RecursiveWatcher) FindFolder(folder string) int {
-    watcher.folderMutex.RLock()
-    defer watcher.folderMutex.RUnlock()
-
-    for i, f := range watcher.folders {
-        if f == folder {
-            return i
-        }
-    }
-    return 0
-}
-
 func (watcher *RecursiveWatcher) AddFolder(folder string) {
-    if watcher.FindFolder(folder) != 0 {
-        fmt.Printf("Already watching %s\n", folder)
-        return
-    }
-
-    watcher.folderMutex.Lock()
-    defer watcher.folderMutex.Unlock()
-
     err := watcher.Watch(folder)
     if err != nil {
         log.Println("Error watching: ", folder, err)
     }
-
-    watcher.folders = append(watcher.folders, folder)
     fmt.Printf("Watching path %s\n", folder)
-}
-
-func (watcher *RecursiveWatcher) RemoveFolder(folder string) {
-    pos := watcher.FindFolder(folder)
-    if pos == 0 {
-        return
-    }
-
-    watcher.folderMutex.Lock()
-    defer watcher.folderMutex.Unlock()
-
-    // Error removing watching from:  d can't remove non-existent kevent watch for: d
-    // err := watcher.RemoveWatch(folder)
-    // if err != nil {
-    //     log.Println("Error removing watching from: ", folder, err)
-    // }
-
-    watcher.folders = append(watcher.folders[:pos], watcher.folders[pos+1:]...)
-    fmt.Printf("No longer watching path %s\n", folder)
 }
 
 // returns a slice of subfolders (recursive), including the folder passed in
@@ -116,9 +73,9 @@ func watch() {
         for {
             select {
             case event := <-watcher.Event:
-                fmt.Print("\n", event, "\n> ")
+                fmt.Println(event)
 
-                // create a directory b/c, ./b
+                // create a directory
                 if event.IsCreate() {
                     fi, err := os.Stat(event.Name)
                     if err != nil {
@@ -126,11 +83,6 @@ func watch() {
                     } else if fi.IsDir() {
                         watcher.AddFolder(event.Name)
                     }
-                }
-
-                // delete|rename ... can't check if it's a folder...
-                if event.IsDelete() || event.IsRename() {
-                    watcher.RemoveFolder(event.Name)
                 }
 
             case err := <-watcher.Error:
