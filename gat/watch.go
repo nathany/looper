@@ -11,6 +11,7 @@ import (
 
 type RecursiveWatcher struct {
     *fsnotify.Watcher
+    Files chan string
 }
 
 func NewRecurisveWatcher(path string) (*RecursiveWatcher, error) {
@@ -67,6 +68,8 @@ func Watch(path string) *RecursiveWatcher {
         log.Fatal(err)
     }
 
+    watcher.Files = make(chan string, 20)
+
     go func() {
         for {
             select {
@@ -81,8 +84,13 @@ func Watch(path string) *RecursiveWatcher {
                     } else if fi.IsDir() {
                         watcher.AddFolder(event.Name)
                     } else {
-                        // created a file
+                        watcher.Files <- event.Name // created a file
                     }
+                }
+
+                if event.IsModify() {
+                    // modified a file, assuming that you don't modify folders
+                    watcher.Files <- event.Name
                 }
 
             case err := <-watcher.Error:

@@ -9,27 +9,43 @@ import (
     "strings"
 )
 
-func CommandParser() {
-    for {
-        fmt.Print("> ")
-        r := bufio.NewReader(os.Stdin)
-        in, err := r.ReadString('\n')
-        if err != nil {
-            log.Fatal(err)
-        }
+func CommandParser() <-chan string {
+    commands := make(chan string, 1)
 
-        in = strings.ToLower(strings.TrimSpace(in))
-        if in == "exit" {
-            break
-        }
+    go func() {
+        for {
+            fmt.Print("> ")
+            r := bufio.NewReader(os.Stdin)
+            in, err := r.ReadString('\n')
+            if err != nil {
+                log.Fatal(err)
+            }
 
-        fmt.Println(in)
-    }
+            in = strings.ToLower(strings.TrimSpace(in))
+            commands <- in
+        }
+    }()
+
+    return commands
 }
 
 func main() {
     fmt.Println("G.A.T. 0.0.1 is watching your files")
+
     watcher := gat.Watch("./")
-    CommandParser()
+    commands := CommandParser()
+
+out:
+    for {
+        select {
+        case file := <-watcher.Files:
+            fmt.Println("file: ", file)
+        case command := <-commands:
+            if command == "exit" {
+                break out
+            }
+            fmt.Println("command: ", command)
+        }
+    }
     watcher.Close()
 }
