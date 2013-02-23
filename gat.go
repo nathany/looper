@@ -2,16 +2,71 @@ package main
 
 import (
     "bufio"
+    "errors"
     "fmt"
     "github.com/howeyc/fsnotify"
     "log"
     "os"
     "path/filepath"
     "strings"
+    "sync"
 )
 
+type RecursiveWatcher struct {
+    *fsnotify.Watcher
+    folders     []string
+    folderMutex sync.RWMutex
+}
+
+func NewRecurisveWatcher(path string) (*RecursiveWatcher, error) {
+    watcher, err := fsnotify.NewWatcher()
+    if err != nil {
+        return nil, err
+    }
+    folders := Subfolders(path)
+    if len(folders) == 0 {
+        return nil, errors.New("No folders to watch.")
+    }
+    rw := &RecursiveWatcher{Watcher: watcher}
+
+    for _, folder := range folders {
+        rw.AddFolder(folder)
+    }
+    return rw, nil
+}
+
+func (watcher *RecursiveWatcher) HasFolder(folder string) bool {
+    watcher.folderMutex.RLock()
+    defer watcher.folderMutex.RUnlock()
+
+    for _, f := range watcher.folders {
+        if f == folder {
+            return true
+        }
+    }
+    return false
+}
+
+func (watcher *RecursiveWatcher) AddFolder(folder string) {
+    if watcher.HasFolder(folder) {
+        fmt.Printf("Already watching %s\n", folder)
+        return
+    }
+
+    watcher.folderMutex.Lock()
+    defer watcher.folderMutex.Unlock()
+
+    err := watcher.Watch(folder)
+    if err != nil {
+        log.Println("Error watching: ", folder, err)
+    }
+
+    watcher.folders = append(watcher.folders, folder)
+    fmt.Printf("Watching path %s\n", folder)
+}
+
 // returns a slice of subfolders (recursive), including the folder passed in
-func folders(path string) (paths []string) {
+func Subfolders(path string) (paths []string) {
     filepath.Walk(path, func(newPath string, info os.FileInfo, err error) error {
         if err != nil {
             return err
@@ -33,7 +88,7 @@ func folders(path string) (paths []string) {
 }
 
 func watch() {
-    watcher, err := fsnotify.NewWatcher()
+    watcher, err := NewRecurisveWatcher("./")
     if err != nil {
         log.Fatal(err)
     }
@@ -50,10 +105,7 @@ func watch() {
                     if err != nil {
                         log.Println(err)
                     } else if fi.IsDir() {
-                        err = watcher.Watch(event.Name)
-                        if err != nil {
-                            log.Println("error watching: ", err)
-                        }
+                        watcher.AddFolder(event.Name)
                     }
                 }
 
@@ -65,14 +117,6 @@ func watch() {
             }
         }
     }()
-
-    for _, folder := range folders("./") {
-        err = watcher.Watch(folder)
-        if err != nil {
-            log.Println("Error watching: ", folder, err)
-        }
-        fmt.Printf("Watching path %s\n", folder)
-    }
 
     // do stuff
     for {
