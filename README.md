@@ -1,0 +1,4 @@
+gat
+===
+
+Go AutoTest
