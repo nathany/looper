@@ -3,6 +3,7 @@ package gat
 import (
     "log"
     "os"
+    "path/filepath"
     "regexp"
 )
 
@@ -58,5 +59,8 @@ func Filter(vs []string, f func(string) bool) (filtered []string) {
 
 // FIXME: only need filter when deriving file names (not for change to _test file)
 func TestFilesThatExist(file string) []string {
-    return Filter(TestFiles(file), Exists)
+    suite_file := filepath.Dir(file) + "/suite_test.go"
+    files := append(TestFiles(file), suite_file)
+    // FIXME: may need to dedup suite_file
+    return Filter(files, Exists)
 }
