@@ -64,8 +64,19 @@ func GoTest(test_files []string) {
     }
 }
 
+func Help() {
+    ansi.Println(ansi.Magenta, "\nHelp:\n")
+    ansi.Println(ansi.White, "  * a, all  Run all tests.")
+    ansi.Println(ansi.White, "  * h, help You found it.")
+    ansi.Println(ansi.White, "  * e, exit Leave G.A.T.")
+
+}
+
 func main() {
-    ansi.Println(ansi.Cyan, "G.A.T.0.0.1 is watching your files\n")
+    ansi.Println(ansi.Cyan, "G.A.T.0.0.1 is watching your files")
+    ansi.Print(ansi.White, "Type ")
+    ansi.Print(ansi.Magenta, "help ")
+    ansi.Println(ansi.White, "for help.\n")
 
     watcher := gat.Watch("./")
     commands := CommandParser()
@@ -81,6 +92,8 @@ out:
                 break out
             case "all", "a":
                 GoTest([]string{"./..."})
+            case "help", "h", "?":
+                Help()
             default:
                 ansi.Print(ansi.Red, "ERROR: ")
                 ansi.Println(ansi.White, "Unknown command", command)
