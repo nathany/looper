@@ -20,9 +20,7 @@ G.A.T. 0.0.1 is now watching your files.
 
 ## Autotest
 
-The convention in [Go][] is to use a *sidecar* test file in the same folder. When G.A.T. detects a change to your production code or the test itself, it will run that test.
-
-You can trigger the full test suite by hitting enter.
+The convention in [Go][] is to use a *counterpart* test file in the same folder. When G.A.T. detects a change to your production code or the test itself, it will run that test.
 
 Go files can be suffixed with an OS and/or architecture (eg.  `file_unix.go`). In this case, G.A.T. will look for both `file_unix_test.go` and `file_test.go`.
 
@@ -30,9 +28,11 @@ Go files can be suffixed with an OS and/or architecture (eg.  `file_unix.go`). I
 
 ...to be determined...
 
-## .gatconfig
+## Interactions
 
-...
+* `↩`, `a`, `all`: Run all tests.
+* `h`, `help`: Show help.
+* `e`, `exit`: Quit G.A.T.
 
 ## Thanks
 
