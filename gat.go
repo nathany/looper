@@ -66,10 +66,15 @@ out:
         case file := <-watcher.Files:
             FileChanged(file)
         case command := <-commands:
-            if command == "exit" {
+            switch command {
+            case "exit", "e":
                 break out
+            case "all", "a":
+                GoTest([]string{"./..."})
+            default:
+                fmt.Println("Command not implemented: ", command)
             }
-            fmt.Println("command: ", command)
+
         }
     }
     watcher.Close()
