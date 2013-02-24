@@ -2,6 +2,10 @@
 
 G.A.T. is a development tool for the [Go Programming Language][go]. It automatically runs your tests and hot compiles your code when it detects file system changes.
 
+## Status
+
+This is *early alpha*. There is still quite a lot I'd like to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.). Also, it has only been tested on Mac OS X 10.8.
+
 ## Get Going
 
 If you are on OS X, you need to first install GNU Readline via [Homebrew](http://mxcl.github.com/homebrew/):
