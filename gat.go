@@ -1,9 +1,10 @@
 package main
 
 import (
+    "fmt"
     "github.com/bobappleyard/readline"
     "github.com/gophertown/gat/gat"
-    "github.com/kierdavis/ansi"
+    "github.com/koyachi/go-term-ansicolor/ansicolor"
     "io"
     "log"
     "os/exec"
@@ -41,10 +42,13 @@ func FileChanged(file string) {
     }
 }
 
-// remove anything that's been typed from the screen
+const CSI = "\x1b["
+
+// remove from the screen anything that's been typed
+// from github.com/kierdavis/ansi
 func ClearPrompt() {
-    ansi.ClearLine()
-    ansi.CursorHozPosition(0)
+    fmt.Printf("%s2K", CSI)     // clear line
+    fmt.Printf("%s%dG", CSI, 0) // go to column 0
 }
 
 func GoTest(test_files []string) {
@@ -53,34 +57,32 @@ func GoTest(test_files []string) {
     cmd := exec.Command("go", args...)
 
     ClearPrompt()
-    ansi.Println(ansi.Yellow, strings.Join(cmd.Args, " "))
+    fmt.Println(ansicolor.Yellow(strings.Join(cmd.Args, " ")))
 
     out, err := cmd.CombinedOutput()
     if err != nil {
         log.Println(err)
     }
 
-    ansi.Print(ansi.White, string(out))
+    fmt.Print(string(out))
 
     if cmd.ProcessState.Success() {
-        ansi.Println(ansi.Green, "PASS")
+        fmt.Println(ansicolor.Green("PASS"))
     } else {
-        ansi.Println(ansi.Red, "FAIL")
+        fmt.Println(ansicolor.Red("FAIL"))
     }
 }
 
 func Help() {
-    ansi.Println(ansi.Magenta, "\nHelp:\n")
-    ansi.Println(ansi.White, "  * a, all  Run all tests.")
-    ansi.Println(ansi.White, "  * h, help You found it.")
-    ansi.Println(ansi.White, "  * e, exit Leave G.A.T.")
+    fmt.Println(ansicolor.Magenta("\nInteractions:\n"))
+    fmt.Println("  * a, all  Run all tests.")
+    fmt.Println("  * h, help You found it.")
+    fmt.Println("  * e, exit Leave G.A.T.")
 }
 
 func Header() {
-    ansi.Println(ansi.Cyan, "G.A.T.0.0.1 is watching your files")
-    ansi.Print(ansi.White, "Type ")
-    ansi.Print(ansi.Magenta, "help ")
-    ansi.Println(ansi.White, "for help.\n")
+    fmt.Println(ansicolor.Cyan("G.A.T.0.0.1 is watching your files"))
+    fmt.Println("Type " + ansicolor.Magenta("help") + " for help.\n")
 }
 
 func EventLoop() {
@@ -99,7 +101,7 @@ out:
             FileChanged(file)
         case folder := <-watcher.Folders:
             ClearPrompt()
-            ansi.Printf(ansi.Yellow, "Watching path %s\n", folder)
+            fmt.Println(ansicolor.Yellow("Watching path"), folder)
         case command := <-commands:
             switch command {
             case "exit", "e", "x", "quit", "q":
@@ -109,8 +111,7 @@ out:
             case "help", "h", "?":
                 Help()
             default:
-                ansi.Print(ansi.Red, "ERROR: ")
-                ansi.Println(ansi.White, "Unknown command", command)
+                fmt.Println(ansicolor.Red("ERROR:")+" Unknown command", ansicolor.Magenta(command))
             }
 
         }
