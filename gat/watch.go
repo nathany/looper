@@ -5,7 +5,6 @@ import (
     "github.com/howeyc/fsnotify"
     "log"
     "os"
-    "path/filepath"
 )
 
 type RecursiveWatcher struct {
@@ -41,28 +40,6 @@ func (watcher *RecursiveWatcher) AddFolder(folder string) {
         log.Println("Error watching: ", folder, err)
     }
     watcher.Folders <- folder
-}
-
-// returns a slice of subfolders (recursive), including the folder passed in
-func Subfolders(path string) (paths []string) {
-    filepath.Walk(path, func(newPath string, info os.FileInfo, err error) error {
-        if err != nil {
-            return err
-        }
-
-        if info.IsDir() {
-            name := info.Name()
-            // skip folders that begin with a dot
-            hidden := filepath.HasPrefix(name, ".") && name != "." && name != ".."
-            if hidden {
-                return filepath.SkipDir
-            } else {
-                paths = append(paths, newPath)
-            }
-        }
-        return nil
-    })
-    return paths
 }
 
 func Watch(path string) *RecursiveWatcher {
