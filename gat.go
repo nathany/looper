@@ -6,7 +6,6 @@ import (
     "github.com/gophertown/gat/gat"
     "io"
     "log"
-    "path/filepath"
     "strings"
 )
 
@@ -33,9 +32,9 @@ func CommandParser() <-chan string {
 }
 
 func FileChanged(file string) {
-    if filepath.Ext(file) == ".go" {
+    if gat.IsGoFile(file) {
         fmt.Println("file: ", file)
-        fmt.Println("test files: ", gat.TestFilesThatExist(file))
+        fmt.Println("test files: ", gat.TestsForGoFile(file))
     }
 }
 

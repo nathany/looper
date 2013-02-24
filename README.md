@@ -22,7 +22,7 @@ G.A.T. 0.0.1 is now watching your files.
 
 The convention in [Go][] is to use a *counterpart* test file in the same folder. When G.A.T. detects a change to your production code or the test itself, it will run that test.
 
-Go files can be suffixed with an OS and/or architecture (eg.  `file_unix.go`). In this case, G.A.T. will look for both `file_unix_test.go` and `file_test.go`.
+If you have a `suite_test.go` in the same folder, G.A.T. will include it in every test run. Use it for the Suite definition (Gocheck, PrettyTest), additional Checkers, or other testing helpers.
 
 ## Hot Compiles
 
@@ -30,7 +30,7 @@ Go files can be suffixed with an OS and/or architecture (eg.  `file_unix.go`). I
 
 ## Interactions
 
-* `↩`, `a`, `all`: Run all tests.
+* `a`, `all`, `↩`: Run all tests.
 * `h`, `help`: Show help.
 * `e`, `exit`: Quit G.A.T.
 

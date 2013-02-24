@@ -8,35 +8,56 @@ import (
 )
 
 var (
-    isTestFile         = regexp.MustCompile(`_test\.go$`)
-    architectureSuffix = regexp.MustCompile(`(.+)_(386|amd64|arm)$`)
-    osSuffix           = regexp.MustCompile(`(.+)_(darwin|freebsd|linux|netbsd|openbsd|plan9|windows|unix)$`)
+    isTestFile = regexp.MustCompile(`_test\.go$`)
 )
 
-func TestFiles(file string) []string {
-    if isTestFile.MatchString(file) {
-        return []string{file}
-    }
-
-    file = file[:len(file)-3]
-    files := []string{file + "_test.go"}
-
-    matches := architectureSuffix.FindStringSubmatch(file)
-    if len(matches) > 0 {
-        file = matches[1]
-        files = append(files, file+"_test.go")
-    }
-
-    matches = osSuffix.FindStringSubmatch(file)
-    if len(matches) > 0 {
-        file = matches[1]
-        files = append(files, file+"_test.go")
-    }
-
-    return files
+func IsGoFile(file string) bool {
+    return filepath.Ext(file) == ".go"
 }
 
-// FIXME: Stat on the file system is probably a bit inefficient
+func TestsForGoFile(file string) string {
+    // if the suite file triggers a change, run tests against the entire folder
+    if IsSuiteFile(file) {
+        return filepath.Dir(file)
+    }
+
+    // test file triggered modify/create, we know it exists
+    if IsTestFile(file) {
+        return file
+    }
+
+    test_file := TestFile(file)
+    // no tests to run
+    if !Exists(test_file) {
+        return ""
+    }
+
+    suite_file := SuiteFile(test_file)
+    // if not found here, should it look in the parent folder?
+    if !Exists(suite_file) {
+        return test_file
+    }
+
+    return suite_file + " " + test_file
+}
+
+func TestFile(file string) string {
+    file = file[:len(file)-3] + "_test.go"
+    return file
+}
+
+func IsTestFile(file string) bool {
+    return isTestFile.MatchString(file)
+}
+
+func SuiteFile(file string) string {
+    return filepath.Dir(file) + "/suite_test.go"
+}
+
+func IsSuiteFile(file string) bool {
+    return filepath.Base(file) == "suite_test.go"
+}
+
 func Exists(path string) bool {
     _, err := os.Stat(path)
     if err == nil {
@@ -46,21 +67,4 @@ func Exists(path string) bool {
         log.Fatal(err)
     }
     return false
-}
-
-func Filter(vs []string, f func(string) bool) (filtered []string) {
-    for _, s := range vs {
-        if f(s) {
-            filtered = append(filtered, s)
-        }
-    }
-    return filtered
-}
-
-// FIXME: only need filter when deriving file names (not for change to _test file)
-func TestFilesThatExist(file string) []string {
-    suite_file := filepath.Dir(file) + "/suite_test.go"
-    files := append(TestFiles(file), suite_file)
-    // FIXME: may need to dedup suite_file
-    return Filter(files, Exists)
 }
