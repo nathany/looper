@@ -4,6 +4,12 @@ G.A.T. is a development tool for the [Go Programming Language][go]. It automatic
 
 ## Get Going
 
+If you are on OS X, you need to first install GNU Readline via [Homebrew](http://mxcl.github.com/homebrew/):
+
+``` console
+$ brew install readline
+```
+
 ``` console
 $ go get -u github.com/gophertown/gat
 

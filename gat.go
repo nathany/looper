@@ -1,11 +1,11 @@
 package main
 
 import (
-    "./gat"
-    "bufio"
     "fmt"
+    "github.com/bobappleyard/readline"
+    "github.com/gophertown/gat/gat"
+    "io"
     "log"
-    "os"
     "path/filepath"
     "strings"
 )
@@ -15,15 +15,17 @@ func CommandParser() <-chan string {
 
     go func() {
         for {
-            fmt.Print("> ")
-            r := bufio.NewReader(os.Stdin)
-            in, err := r.ReadString('\n')
-            if err != nil {
+            in, err := readline.String("> ")
+            if err == io.EOF { // Ctrl+D
+                commands <- "exit"
+                break
+            } else if err != nil {
                 log.Fatal(err)
             }
 
             in = strings.ToLower(strings.TrimSpace(in))
             commands <- in
+            readline.AddHistory(in)
         }
     }()
 
