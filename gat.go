@@ -1,10 +1,8 @@
 package main
 
 import (
-    "fmt"
     "github.com/bobappleyard/readline"
     "github.com/gophertown/gat/gat"
-    "github.com/koyachi/go-term-ansicolor/ansicolor"
     "io"
     "log"
     "os/exec"
@@ -42,47 +40,20 @@ func FileChanged(file string) {
     }
 }
 
-const CSI = "\x1b["
-
-// remove from the screen anything that's been typed
-// from github.com/kierdavis/ansi
-func ClearPrompt() {
-    fmt.Printf("%s2K", CSI)     // clear line
-    fmt.Printf("%s%dG", CSI, 0) // go to column 0
-}
-
 func GoTest(test_files []string) {
     args := append([]string{"test"}, test_files...)
 
     cmd := exec.Command("go", args...)
 
-    ClearPrompt()
-    fmt.Println(ansicolor.Yellow(strings.Join(cmd.Args, " ")))
+    gat.PrintCommand(cmd.Args) // includes "go"
 
     out, err := cmd.CombinedOutput()
     if err != nil {
         log.Println(err)
     }
+    gat.PrintCommandOutput(out)
 
-    fmt.Print(string(out))
-
-    if cmd.ProcessState.Success() {
-        fmt.Println(ansicolor.Green("PASS"))
-    } else {
-        fmt.Println(ansicolor.Red("FAIL"))
-    }
-}
-
-func Help() {
-    fmt.Println(ansicolor.Magenta("\nInteractions:\n"))
-    fmt.Println("  * a, all  Run all tests.")
-    fmt.Println("  * h, help You found it.")
-    fmt.Println("  * e, exit Leave G.A.T.")
-}
-
-func Header() {
-    fmt.Println(ansicolor.Cyan("G.A.T.0.0.1 is watching your files"))
-    fmt.Println("Type " + ansicolor.Magenta("help") + " for help.\n")
+    gat.RedGreen(cmd.ProcessState.Success())
 }
 
 func EventLoop() {
@@ -100,8 +71,7 @@ out:
         case file := <-watcher.Files:
             FileChanged(file)
         case folder := <-watcher.Folders:
-            ClearPrompt()
-            fmt.Println(ansicolor.Yellow("Watching path"), folder)
+            gat.PrintWatching(folder)
         case command := <-commands:
             switch command {
             case "exit", "e", "x", "quit", "q":
@@ -109,9 +79,9 @@ out:
             case "all", "a":
                 GoTest([]string{"./..."})
             case "help", "h", "?":
-                Help()
+                gat.Help()
             default:
-                fmt.Println(ansicolor.Red("ERROR:")+" Unknown command", ansicolor.Magenta(command))
+                gat.UnknownCommand(command)
             }
 
         }
@@ -119,6 +89,6 @@ out:
 }
 
 func main() {
-    Header()
+    gat.Header()
     EventLoop()
 }
