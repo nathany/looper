@@ -5,7 +5,6 @@ import (
     "github.com/gophertown/gat/gat"
     "io"
     "log"
-    "os/exec"
     "strings"
 )
 
@@ -16,7 +15,7 @@ func CommandParser() <-chan string {
         for {
             in, err := readline.String("")
             if err == io.EOF { // Ctrl+D
-                commands <- "exit"
+                commands <- "eof"
                 break
             } else if err != nil {
                 log.Fatal(err)
@@ -35,25 +34,9 @@ func FileChanged(file string) {
     if gat.IsGoFile(file) {
         test_files := gat.TestsForGoFile(file)
         if test_files != nil {
-            GoTest(test_files)
+            gat.GoTest(test_files)
         }
     }
-}
-
-func GoTest(test_files []string) {
-    args := append([]string{"test"}, test_files...)
-
-    cmd := exec.Command("go", args...)
-
-    gat.PrintCommand(cmd.Args) // includes "go"
-
-    out, err := cmd.CombinedOutput()
-    if err != nil {
-        log.Println(err)
-    }
-    gat.PrintCommandOutput(out)
-
-    gat.RedGreen(cmd.ProcessState.Success())
 }
 
 func EventLoop() {
@@ -74,10 +57,10 @@ out:
             gat.PrintWatching(folder)
         case command := <-commands:
             switch command {
-            case "exit", "e", "x", "quit", "q":
+            case "exit", "e", "x", "quit", "q", "eof":
                 break out
             case "all", "a":
-                GoTest([]string{"./..."})
+                gat.GoTestAll()
             case "help", "h", "?":
                 gat.Help()
             default:
