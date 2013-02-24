@@ -2,8 +2,8 @@ package gat
 
 import (
     "errors"
-    "fmt"
     "github.com/howeyc/fsnotify"
+    "github.com/kierdavis/ansi"
     "log"
     "os"
     "path/filepath"
@@ -37,7 +37,9 @@ func (watcher *RecursiveWatcher) AddFolder(folder string) {
     if err != nil {
         log.Println("Error watching: ", folder, err)
     }
-    fmt.Printf("Watching path %s\n", folder)
+    ansi.ClearLine()
+    ansi.CursorHozPosition(0)
+    ansi.Printf(ansi.Yellow, "Watching path %s\n", folder)
 }
 
 // returns a slice of subfolders (recursive), including the folder passed in

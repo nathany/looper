@@ -1,9 +1,9 @@
 package main
 
 import (
-    "fmt"
     "github.com/bobappleyard/readline"
     "github.com/gophertown/gat/gat"
+    "github.com/kierdavis/ansi"
     "io"
     "log"
     "os/exec"
@@ -15,7 +15,7 @@ func CommandParser() <-chan string {
 
     go func() {
         for {
-            in, err := readline.String("> ")
+            in, err := readline.String("")
             if err == io.EOF { // Ctrl+D
                 commands <- "exit"
                 break
@@ -34,7 +34,6 @@ func CommandParser() <-chan string {
 
 func FileChanged(file string) {
     if gat.IsGoFile(file) {
-        fmt.Println("\nevent: ", file)
         test_files := gat.TestsForGoFile(file)
         if test_files != nil {
             GoTest(test_files)
@@ -43,19 +42,30 @@ func FileChanged(file string) {
 }
 
 func GoTest(test_files []string) {
-    args := append([]string{"test", "-v"}, test_files...)
+    args := append([]string{"test"}, test_files...)
 
     cmd := exec.Command("go", args...)
-    fmt.Println(strings.Join(cmd.Args, " "))
+
+    ansi.ClearLine()
+    ansi.CursorHozPosition(0)
+    ansi.Println(ansi.Yellow, strings.Join(cmd.Args, " "))
+
     out, err := cmd.CombinedOutput()
     if err != nil {
         log.Println(err)
     }
-    fmt.Print(string(out))
+
+    ansi.Print(ansi.White, string(out))
+
+    if cmd.ProcessState.Success() {
+        ansi.Println(ansi.Green, "PASS")
+    } else {
+        ansi.Println(ansi.Red, "FAIL")
+    }
 }
 
 func main() {
-    fmt.Println("G.A.T. 0.0.1 is watching your files")
+    ansi.Println(ansi.Cyan, "G.A.T.0.0.1 is watching your files\n")
 
     watcher := gat.Watch("./")
     commands := CommandParser()
@@ -67,12 +77,13 @@ out:
             FileChanged(file)
         case command := <-commands:
             switch command {
-            case "exit", "e":
+            case "exit", "e", "x", "quit", "q":
                 break out
             case "all", "a":
                 GoTest([]string{"./..."})
             default:
-                fmt.Println("Command not implemented: ", command)
+                ansi.Print(ansi.Red, "ERROR: ")
+                ansi.Println(ansi.White, "Unknown command", command)
             }
 
         }
