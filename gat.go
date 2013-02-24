@@ -6,6 +6,7 @@ import (
     "fmt"
     "log"
     "os"
+    "path/filepath"
     "strings"
 )
 
@@ -29,6 +30,13 @@ func CommandParser() <-chan string {
     return commands
 }
 
+func FileChanged(file string) {
+    if filepath.Ext(file) == ".go" {
+        fmt.Println("file: ", file)
+        fmt.Println("test files: ", gat.TestFiles(file))
+    }
+}
+
 func main() {
     fmt.Println("G.A.T. 0.0.1 is watching your files")
 
@@ -39,7 +47,7 @@ out:
     for {
         select {
         case file := <-watcher.Files:
-            fmt.Println("file: ", file)
+            FileChanged(file)
         case command := <-commands:
             if command == "exit" {
                 break out

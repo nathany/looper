@@ -74,8 +74,6 @@ func Watch(path string) *RecursiveWatcher {
         for {
             select {
             case event := <-watcher.Event:
-                fmt.Println(event)
-
                 // create a directory
                 if event.IsCreate() {
                     fi, err := os.Stat(event.Name)
