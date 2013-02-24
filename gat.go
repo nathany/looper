@@ -33,7 +33,7 @@ func CommandParser() <-chan string {
 func FileChanged(file string) {
     if filepath.Ext(file) == ".go" {
         fmt.Println("file: ", file)
-        fmt.Println("test files: ", gat.TestFiles(file))
+        fmt.Println("test files: ", gat.TestFilesThatExist(file))
     }
 }
 
