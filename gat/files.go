@@ -15,30 +15,31 @@ func IsGoFile(file string) bool {
     return filepath.Ext(file) == ".go"
 }
 
-func TestsForGoFile(file string) string {
+func TestsForGoFile(file string) []string {
     // if the suite file triggers a change, run tests against the entire folder
     if IsSuiteFile(file) {
-        return filepath.Dir(file)
+        return []string{"./" + filepath.Dir(file)} // watchDir = ./
     }
 
+    var test_file string
     // test file triggered modify/create, we know it exists
     if IsTestFile(file) {
-        return file
-    }
-
-    test_file := TestFile(file)
-    // no tests to run
-    if !Exists(test_file) {
-        return ""
+        test_file = file
+    } else {
+        test_file = TestFile(file)
+        // no tests to run
+        if !Exists(test_file) {
+            return nil
+        }
     }
 
     suite_file := SuiteFile(test_file)
     // if not found here, should it look in the parent folder?
     if !Exists(suite_file) {
-        return test_file
+        return []string{test_file}
     }
 
-    return suite_file + " " + test_file
+    return []string{suite_file, test_file}
 }
 
 func TestFile(file string) string {

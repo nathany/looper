@@ -6,6 +6,7 @@ import (
     "github.com/gophertown/gat/gat"
     "io"
     "log"
+    "os/exec"
     "strings"
 )
 
@@ -33,9 +34,24 @@ func CommandParser() <-chan string {
 
 func FileChanged(file string) {
     if gat.IsGoFile(file) {
-        fmt.Println("file: ", file)
-        fmt.Println("test files: ", gat.TestsForGoFile(file))
+        fmt.Println("\nevent: ", file)
+        test_files := gat.TestsForGoFile(file)
+        if test_files != nil {
+            GoTest(test_files)
+        }
     }
+}
+
+func GoTest(test_files []string) {
+    args := append([]string{"test", "-v"}, test_files...)
+
+    cmd := exec.Command("go", args...)
+    fmt.Println(strings.Join(cmd.Args, " "))
+    out, err := cmd.CombinedOutput()
+    if err != nil {
+        log.Println(err)
+    }
+    fmt.Print(string(out))
 }
 
 func main() {
