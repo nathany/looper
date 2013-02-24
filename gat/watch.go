@@ -3,7 +3,6 @@ package gat
 import (
     "errors"
     "github.com/howeyc/fsnotify"
-    "github.com/kierdavis/ansi"
     "log"
     "os"
     "path/filepath"
@@ -11,7 +10,8 @@ import (
 
 type RecursiveWatcher struct {
     *fsnotify.Watcher
-    Files chan string
+    Files   chan string
+    Folders chan string
 }
 
 func NewRecurisveWatcher(path string) (*RecursiveWatcher, error) {
@@ -26,6 +26,9 @@ func NewRecurisveWatcher(path string) (*RecursiveWatcher, error) {
     }
     rw := &RecursiveWatcher{Watcher: watcher}
 
+    rw.Files = make(chan string, 10)
+    rw.Folders = make(chan string, len(folders))
+
     for _, folder := range folders {
         rw.AddFolder(folder)
     }
@@ -37,9 +40,7 @@ func (watcher *RecursiveWatcher) AddFolder(folder string) {
     if err != nil {
         log.Println("Error watching: ", folder, err)
     }
-    ansi.ClearLine()
-    ansi.CursorHozPosition(0)
-    ansi.Printf(ansi.Yellow, "Watching path %s\n", folder)
+    watcher.Folders <- folder
 }
 
 // returns a slice of subfolders (recursive), including the folder passed in
@@ -69,8 +70,6 @@ func Watch(path string) *RecursiveWatcher {
     if err != nil {
         log.Fatal(err)
     }
-
-    watcher.Files = make(chan string, 20)
 
     go func() {
         for {

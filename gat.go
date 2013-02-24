@@ -41,13 +41,18 @@ func FileChanged(file string) {
     }
 }
 
+// remove anything that's been typed from the screen
+func ClearPrompt() {
+    ansi.ClearLine()
+    ansi.CursorHozPosition(0)
+}
+
 func GoTest(test_files []string) {
     args := append([]string{"test"}, test_files...)
 
     cmd := exec.Command("go", args...)
 
-    ansi.ClearLine()
-    ansi.CursorHozPosition(0)
+    ClearPrompt()
     ansi.Println(ansi.Yellow, strings.Join(cmd.Args, " "))
 
     out, err := cmd.CombinedOutput()
@@ -69,23 +74,28 @@ func Help() {
     ansi.Println(ansi.White, "  * a, all  Run all tests.")
     ansi.Println(ansi.White, "  * h, help You found it.")
     ansi.Println(ansi.White, "  * e, exit Leave G.A.T.")
-
 }
 
-func main() {
+func Header() {
     ansi.Println(ansi.Cyan, "G.A.T.0.0.1 is watching your files")
     ansi.Print(ansi.White, "Type ")
     ansi.Print(ansi.Magenta, "help ")
     ansi.Println(ansi.White, "for help.\n")
+}
 
-    watcher := gat.Watch("./")
+func EventLoop() {
     commands := CommandParser()
+    watcher := gat.Watch("./")
+    defer watcher.Close()
 
 out:
     for {
         select {
         case file := <-watcher.Files:
             FileChanged(file)
+        case folder := <-watcher.Folders:
+            ClearPrompt()
+            ansi.Printf(ansi.Yellow, "Watching path %s\n", folder)
         case command := <-commands:
             switch command {
             case "exit", "e", "x", "quit", "q":
@@ -101,5 +111,9 @@ out:
 
         }
     }
-    watcher.Close()
+}
+
+func main() {
+    Header()
+    EventLoop()
 }
