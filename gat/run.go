@@ -9,6 +9,7 @@ func GoTest(test_files []string) {
     args := append([]string{"test"}, test_files...)
 
     cmd := exec.Command("go", args...)
+    // cmd.Dir watchDir = ./
 
     PrintCommand(cmd.Args) // includes "go"
 

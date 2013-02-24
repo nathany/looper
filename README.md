@@ -4,7 +4,7 @@ G.A.T. is a development tool for the [Go Programming Language][go]. It automatic
 
 ## Status
 
-This is *early alpha*. There is still quite a lot I'd like to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.). Also, it has only been tested on Mac OS X 10.8.
+This is an *early alpha*. There is still quite a lot to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.). Also, it has only been tested on Mac OS X 10.8.
 
 ## Get Going
 
@@ -18,7 +18,6 @@ $ brew install readline
 $ go get -u github.com/gophertown/gat
 
 $ gat
-
 G.A.T.0.0.1 is now watching your files
 Type help for help.
 
@@ -27,7 +26,7 @@ Watching path ./
 
 ## Autotest
 
-The convention in [Go][] is to use a *counterpart* test file in the same folder. When G.A.T. detects a change to your production code or the test itself, it will run the appropriate test.
+By convention, [Go][] code has a *counterpart* test file in the same folder. When G.A.T. detects a change to your production code or the test itself, it will run the appropriate test.
 
 If you have a `suite_test.go` in the same folder, G.A.T. will include it in every test run. Use it for a Suite definition (Gocheck, PrettyTest), additional Checkers, or other testing helpers.
 
