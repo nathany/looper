@@ -42,12 +42,7 @@ func (watcher *RecursiveWatcher) AddFolder(folder string) {
     watcher.Folders <- folder
 }
 
-func Watch(path string) *RecursiveWatcher {
-    watcher, err := NewRecurisveWatcher(path)
-    if err != nil {
-        log.Fatal(err)
-    }
-
+func (watcher *RecursiveWatcher) Run() {
     go func() {
         for {
             select {
@@ -74,6 +69,4 @@ func Watch(path string) *RecursiveWatcher {
             }
         }
     }()
-
-    return watcher
 }

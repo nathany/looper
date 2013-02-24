@@ -85,7 +85,11 @@ func Header() {
 
 func EventLoop() {
     commands := CommandParser()
-    watcher := gat.Watch("./")
+    watcher, err := gat.NewRecurisveWatcher("./")
+    if err != nil {
+        log.Fatal(err)
+    }
+    watcher.Run()
     defer watcher.Close()
 
 out:
