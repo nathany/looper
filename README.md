@@ -15,14 +15,17 @@ $ go get -u github.com/gophertown/gat
 
 $ gat
 
-G.A.T. 0.0.1 is now watching your files.
+G.A.T.0.0.1 is now watching your files
+Type help for help.
+
+Watching path ./
 ```
 
 ## Autotest
 
-The convention in [Go][] is to use a *counterpart* test file in the same folder. When G.A.T. detects a change to your production code or the test itself, it will run that test.
+The convention in [Go][] is to use a *counterpart* test file in the same folder. When G.A.T. detects a change to your production code or the test itself, it will run the appropriate test.
 
-If you have a `suite_test.go` in the same folder, G.A.T. will include it in every test run. Use it for the Suite definition (Gocheck, PrettyTest), additional Checkers, or other testing helpers.
+If you have a `suite_test.go` in the same folder, G.A.T. will include it in every test run. Use it for a Suite definition (Gocheck, PrettyTest), additional Checkers, or other testing helpers.
 
 ## Hot Compiles
 
