@@ -4,6 +4,8 @@ G.A.T. is a development tool for the [Go Programming Language][go]. It automatic
 
 ## Status
 
+[![Build Status](https://travis-ci.org/gophertown/gat.png?branch=master)](https://travis-ci.org/gophertown/gat)
+
 This is an *early alpha*. There is still quite a lot to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.). Also, it has only been tested on Mac OS X 10.8.
 
 ## Get Going
