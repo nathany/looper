@@ -8,6 +8,8 @@ G.A.T. is a development tool for the [Go Programming Language][go]. It automatic
 
 This is an *early alpha*. There is still quite a lot to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.). Also, it has only been tested on Mac OS X 10.8.
 
+See the public [Trello board](https://trello.com/b/VvblYiSE) for the Roadmap.
+
 ## Get Going
 
 If you are on OS X, you need to first install GNU Readline via [Homebrew](http://mxcl.github.com/homebrew/):
@@ -20,7 +22,7 @@ $ brew install readline
 $ go get -u github.com/gophertown/gat
 
 $ gat
-G.A.T.0.0.1 is now watching your files
+G.A.T.0.1.0 is now watching your files
 Type help for help.
 
 Watching path ./

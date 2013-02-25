@@ -1,3 +1,4 @@
+// Autotesting tool with readline support.
 package main
 
 import (
