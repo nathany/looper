@@ -20,6 +20,7 @@ func GoTest(test_files []string) {
     PrintCommandOutput(out)
 
     RedGreen(cmd.ProcessState.Success())
+    ShowDuration(cmd.ProcessState.UserTime())
 }
 
 func GoTestAll() {

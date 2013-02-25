@@ -4,6 +4,7 @@ import (
     "fmt"
     "github.com/koyachi/go-term-ansicolor/ansicolor"
     "strings"
+    "time"
 )
 
 func Header() {
@@ -29,10 +30,14 @@ func PrintCommandOutput(out []byte) {
 
 func RedGreen(pass bool) {
     if pass {
-        fmt.Println(ansicolor.Green("PASS"))
+        fmt.Print(ansicolor.Green("PASS"))
     } else {
-        fmt.Println(ansicolor.Red("FAIL"))
+        fmt.Print(ansicolor.Red("FAIL"))
     }
+}
+
+func ShowDuration(dur time.Duration) {
+    fmt.Printf(" (%.2f seconds)\n", dur.Seconds())
 }
 
 func PrintWatching(folder string) {
