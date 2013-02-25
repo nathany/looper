@@ -35,8 +35,9 @@ out:
 }
 
 func FileChanged(file string) {
-    if gat.IsGoFile(file) {
-        test_files := gat.TestsForGoFile(file)
+    fc := gat.NewFileChecker(file)
+    if fc.IsGoFile() {
+        test_files := fc.TestsForGoFile()
         if test_files != nil {
             gat.GoTest(test_files)
         }

@@ -8,47 +8,56 @@ import (
 )
 
 var (
-    isTestFile = regexp.MustCompile(`_test\.go$`)
+    testFileMatcher = regexp.MustCompile(`_test\.go$`)
 )
 
-func IsGoFile(file string) bool {
-    return filepath.Ext(file) == ".go"
+type FileChecker struct {
+    file   string
+    Exists func(string) bool
 }
 
-func TestsForGoFile(file string) []string {
+func NewFileChecker(file string) FileChecker {
+    return FileChecker{file: file, Exists: FileExists}
+}
+
+func (fc FileChecker) IsGoFile() bool {
+    return filepath.Ext(fc.file) == ".go"
+}
+
+func (fc FileChecker) TestsForGoFile() []string {
     // if the suite file triggers a change, run tests against the entire folder
-    if IsSuiteFile(file) {
-        return []string{"./" + filepath.Dir(file)} // watchDir = ./
+    if IsSuiteFile(fc.file) {
+        return []string{"./" + filepath.Dir(fc.file)} // watchDir = ./
     }
 
     var test_file string
-    // test file triggered modify/create, we know it exists
-    if IsTestFile(file) {
-        test_file = file
+    // test file triggered a modify/create, we know it exists
+    if fc.IsTestFile() {
+        test_file = fc.file
     } else {
-        test_file = TestFile(file)
+        test_file = TestFile(fc.file)
         // no tests to run
-        if !Exists(test_file) {
+        if !fc.Exists(test_file) {
             return nil
         }
     }
 
     suite_file := SuiteFile(test_file)
     // if not found here, should it look in the parent folder?
-    if !Exists(suite_file) {
+    if !fc.Exists(suite_file) {
         return []string{test_file}
     }
 
     return []string{suite_file, test_file}
 }
 
+func (fc FileChecker) IsTestFile() bool {
+    return testFileMatcher.MatchString(fc.file)
+}
+
 func TestFile(file string) string {
     file = file[:len(file)-3] + "_test.go"
     return file
-}
-
-func IsTestFile(file string) bool {
-    return isTestFile.MatchString(file)
 }
 
 func SuiteFile(file string) string {
@@ -59,7 +68,7 @@ func IsSuiteFile(file string) bool {
     return filepath.Base(file) == "suite_test.go"
 }
 
-func Exists(path string) bool {
+func FileExists(path string) bool {
     _, err := os.Stat(path)
     if err == nil {
         return true
