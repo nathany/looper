@@ -2,11 +2,16 @@
 package main
 
 import (
+    "flag"
     "github.com/gophertown/gat/gat"
     "log"
 )
 
-func EventLoop() {
+type Args struct {
+    Tags string
+}
+
+func EventLoop(args *Args) {
     commands := gat.CommandParser()
     watcher, err := gat.NewRecurisveWatcher("./")
     if err != nil {
@@ -19,7 +24,7 @@ out:
     for {
         select {
         case file := <-watcher.Files:
-            FileChanged(file)
+            FileChanged(args.Tags, file)
         case folder := <-watcher.Folders:
             gat.PrintWatching(folder)
         case command := <-commands:
@@ -27,7 +32,7 @@ out:
             case gat.EXIT:
                 break out
             case gat.TEST_ALL:
-                gat.GoTestAll()
+                gat.GoTestAll(args.Tags)
             case gat.HELP:
                 gat.Help()
             }
@@ -35,17 +40,20 @@ out:
     }
 }
 
-func FileChanged(file string) {
+func FileChanged(tags string, file string) {
     fc := gat.NewFileChecker(file)
     if fc.IsGoFile() {
         test_files := fc.TestsForGoFile()
         if test_files != nil {
-            gat.GoTest(test_files)
+            gat.GoTest(tags, test_files)
         }
     }
 }
 
 func main() {
+    var args Args
+    flag.StringVar(&args.Tags, "tags", "", "a list of build tags for testing.")
+    flag.Parse()
     gat.Header()
-    EventLoop()
+    EventLoop(&args)
 }
