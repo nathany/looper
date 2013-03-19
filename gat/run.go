@@ -5,8 +5,12 @@ import (
     "os/exec"
 )
 
-func GoTest(test_files []string) {
-    args := append([]string{"test"}, test_files...)
+func GoTest(tags string, test_files []string) {
+    args := []string{"test"}
+    if len(tags) > 0 {
+        args = append(args, []string{"-tags", tags}...)
+    }
+    args = append(args, test_files...)
 
     cmd := exec.Command("go", args...)
     // cmd.Dir watchDir = ./
@@ -23,6 +27,6 @@ func GoTest(test_files []string) {
     ShowDuration(cmd.ProcessState.UserTime())
 }
 
-func GoTestAll() {
-    GoTest([]string{"./..."})
+func GoTestAll(tags string) {
+    GoTest(tags, []string{"./..."})
 }
