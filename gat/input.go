@@ -42,7 +42,7 @@ func NormalizeCommand(in string) (c Command) {
     switch command {
     case "exit", "e", "x", "quit", "q":
         c = EXIT
-    case "all", "a":
+    case "all", "a", "":
         c = TEST_ALL
     case "help", "h", "?":
         c = HELP
