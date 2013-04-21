@@ -61,7 +61,11 @@ func TestFile(file string) string {
 }
 
 func SuiteFile(file string) string {
-    return filepath.Dir(file) + "/suite_test.go"
+    dir := filepath.Dir(file)
+    if dir == "." {
+        return "suite_test.go"
+    }
+    return dir + "/suite_test.go"
 }
 
 func IsSuiteFile(file string) bool {
