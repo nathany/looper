@@ -28,7 +28,7 @@ Then run `gat` in your project folder:
 
 ``` console
 $ gat
-G.A.T.0.1.0 is now watching your files
+G.A.T.0.1.1 is now watching your files
 Type help for help.
 
 Watching path ./
