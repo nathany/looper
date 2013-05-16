@@ -7,4 +7,4 @@ before_install:
 
 
 script:
-    - go test ./gat -v
+    - go test ./... -v

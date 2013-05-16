@@ -12,8 +12,8 @@ type Args struct {
 }
 
 func EventLoop(args *Args) {
-    commands := gat.CommandParser()
-    watcher, err := gat.NewRecurisveWatcher("./")
+    commands := CommandParser()
+    watcher, err := NewRecurisveWatcher("./")
     if err != nil {
         log.Fatal(err)
     }
@@ -26,15 +26,15 @@ out:
         case file := <-watcher.Files:
             FileChanged(args.Tags, file)
         case folder := <-watcher.Folders:
-            gat.PrintWatching(folder)
+            PrintWatching(folder)
         case command := <-commands:
             switch command {
-            case gat.EXIT:
+            case EXIT:
                 break out
-            case gat.TEST_ALL:
+            case TEST_ALL:
                 gat.GoTestAll(args.Tags)
-            case gat.HELP:
-                gat.Help()
+            case HELP:
+                Help()
             }
         }
     }
@@ -54,6 +54,6 @@ func main() {
     var args Args
     flag.StringVar(&args.Tags, "tags", "", "a list of build tags for testing.")
     flag.Parse()
-    gat.Header()
+    Header()
     EventLoop(&args)
 }

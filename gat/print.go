@@ -7,18 +7,6 @@ import (
     "time"
 )
 
-func Header() {
-    fmt.Println(ansicolor.Cyan("Looper 0.1.2 is watching your files"))
-    fmt.Println("Type " + ansicolor.Magenta("help") + " for help.\n")
-}
-
-func Help() {
-    fmt.Println(ansicolor.Magenta("\nInteractions:\n"))
-    fmt.Println("  * a, all  Run all tests")
-    fmt.Println("  * h, help You found it")
-    fmt.Println("  * e, exit Leave Looper")
-}
-
 func PrintCommand(args []string) {
     ClearPrompt()
     fmt.Println(ansicolor.Yellow(strings.Join(args, " ")))
@@ -38,15 +26,6 @@ func RedGreen(pass bool) {
 
 func ShowDuration(dur time.Duration) {
     fmt.Printf(" (%.2f seconds)\n", dur.Seconds())
-}
-
-func PrintWatching(folder string) {
-    ClearPrompt()
-    fmt.Println(ansicolor.Yellow("Watching path"), ansicolor.Yellow(folder))
-}
-
-func UnknownCommand(command string) {
-    fmt.Println(ansicolor.Red("ERROR:")+" Unknown command", ansicolor.Magenta(command))
 }
 
 const CSI = "\x1b["

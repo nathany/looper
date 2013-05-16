@@ -1,4 +1,4 @@
-package gat
+package main
 
 import (
     "github.com/bobappleyard/readline"
