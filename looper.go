@@ -3,7 +3,7 @@ package main
 
 import (
     "flag"
-    "github.com/gophertown/gat/gat"
+    "github.com/gophertown/looper/gat"
     "log"
 )
 

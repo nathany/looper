@@ -1,6 +1,10 @@
-# G.A.T. Changelog
+# Looper Changelog
 
 Roadmap & voting at the public [Trello board](https://trello.com/b/VvblYiSE).
+
+## 0.1.2 / 2013-05-16
+
+* Rename to Looper
 
 ## 0.1.1 / 2013-04-21
 

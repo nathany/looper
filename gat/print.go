@@ -8,15 +8,15 @@ import (
 )
 
 func Header() {
-    fmt.Println(ansicolor.Cyan("G.A.T.0.1.1 is watching your files"))
+    fmt.Println(ansicolor.Cyan("Looper 0.1.2 is watching your files"))
     fmt.Println("Type " + ansicolor.Magenta("help") + " for help.\n")
 }
 
 func Help() {
     fmt.Println(ansicolor.Magenta("\nInteractions:\n"))
-    fmt.Println("  * a, all  Run all tests.")
-    fmt.Println("  * h, help You found it.")
-    fmt.Println("  * e, exit Leave G.A.T.")
+    fmt.Println("  * a, all  Run all tests")
+    fmt.Println("  * h, help You found it")
+    fmt.Println("  * e, exit Leave Looper")
 }
 
 func PrintCommand(args []string) {
