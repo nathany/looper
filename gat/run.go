@@ -5,10 +5,14 @@ import (
     "os/exec"
 )
 
-func GoTest(tags string, test_files []string) {
+type Run struct {
+    Tags string
+}
+
+func (run Run) goTest(test_files []string) {
     args := []string{"test"}
-    if len(tags) > 0 {
-        args = append(args, []string{"-tags", tags}...)
+    if len(run.Tags) > 0 {
+        args = append(args, []string{"-tags", run.Tags}...)
     }
     args = append(args, test_files...)
 
@@ -27,6 +31,16 @@ func GoTest(tags string, test_files []string) {
     ShowDuration(cmd.ProcessState.UserTime())
 }
 
-func GoTestAll(tags string) {
-    GoTest(tags, []string{"./..."})
+func (run Run) RunAll() {
+    run.goTest([]string{"./..."})
+}
+
+func (run Run) RunOnChange(file string) {
+    fc := NewFileChecker(file)
+    if fc.IsGoFile() {
+        test_files := fc.TestsForGoFile()
+        if test_files != nil {
+            run.goTest(test_files)
+        }
+    }
 }

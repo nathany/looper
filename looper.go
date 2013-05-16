@@ -7,11 +7,12 @@ import (
     "log"
 )
 
-type Args struct {
-    Tags string
+type Runner interface {
+    RunOnChange(file string)
+    RunAll()
 }
 
-func EventLoop(args *Args) {
+func EventLoop(runner Runner) {
     commands := CommandParser()
     watcher, err := NewRecurisveWatcher("./")
     if err != nil {
@@ -24,15 +25,15 @@ out:
     for {
         select {
         case file := <-watcher.Files:
-            FileChanged(args.Tags, file)
+            runner.RunOnChange(file)
         case folder := <-watcher.Folders:
             PrintWatching(folder)
         case command := <-commands:
             switch command {
             case EXIT:
                 break out
-            case TEST_ALL:
-                gat.GoTestAll(args.Tags)
+            case RUN_ALL:
+                runner.RunAll()
             case HELP:
                 Help()
             }
@@ -40,20 +41,13 @@ out:
     }
 }
 
-func FileChanged(tags string, file string) {
-    fc := gat.NewFileChecker(file)
-    if fc.IsGoFile() {
-        test_files := fc.TestsForGoFile()
-        if test_files != nil {
-            gat.GoTest(tags, test_files)
-        }
-    }
-}
-
 func main() {
-    var args Args
-    flag.StringVar(&args.Tags, "tags", "", "a list of build tags for testing.")
+    var tags string
+    flag.StringVar(&tags, "tags", "", "a list of build tags for testing.")
     flag.Parse()
+
+    runner := gat.Run{Tags: tags}
+
     Header()
-    EventLoop(&args)
+    EventLoop(runner)
 }

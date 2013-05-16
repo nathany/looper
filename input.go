@@ -13,7 +13,7 @@ const (
     UNKNOWN Command = iota
     HELP
     EXIT
-    TEST_ALL
+    RUN_ALL
 )
 
 func CommandParser() <-chan Command {
@@ -43,7 +43,7 @@ func NormalizeCommand(in string) (c Command) {
     case "exit", "e", "x", "quit", "q":
         c = EXIT
     case "all", "a", "":
-        c = TEST_ALL
+        c = RUN_ALL
     case "help", "h", "?":
         c = HELP
     default:
