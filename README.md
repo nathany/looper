@@ -28,7 +28,7 @@ Then run `looper` in your project folder:
 
 ``` console
 $ looper
-Looper 0.1.2 is watching your files
+Looper 0.2.0 is watching your files
 Type help for help.
 
 Watching path ./

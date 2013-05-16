@@ -2,7 +2,7 @@
 
 Roadmap & voting at the public [Trello board](https://trello.com/b/VvblYiSE).
 
-## 0.1.2 / 2013-05-16
+## 0.2.0 / 2013-05-16
 
 * Rename to Looper
 * Packages are the unit of compilation in Go. Use a package-level granularity for testing.
