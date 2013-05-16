@@ -34,15 +34,21 @@ Type help for help.
 Watching path ./
 ```
 
-## Autotest
+## Gat (Go Autotest)
 
-By convention, [Go][] code has a *counterpart* test file in the same folder. When Looper detects a change to your production code or the test itself, it will run the appropriate test.
+Packages are the unit of compilation in Go. By convention, each package has a separate folder, though a single folder may also have a `_test` package for black box testing.
 
-If you have a `suite_test.go` in the same folder, Looper will include it in every test run. Use it for a Suite definition ([Gocheck][], [PrettyTest][pat]), additional Checkers, or other testing helpers.
+When Looper detects a change to a *.go file, it will build & run the tests for that directory. You can also run all tests against all packages at once.
 
-## Hot Compiles
+To setup a Suite definition ([Gocheck][], [PrettyTest][pat]), additional Checkers, or other test helpers, use any test file you like in the same folder (eg. `suite_test.go`).
+
+Gat is inspired by Andrea Fazzi's [PrettyAutoTest][pat].
+
+## Blunderbuss (Hot Compile)
 
 ...to be determined...
+
+Blunderbuss is inspired by [shotgun][], the reloading rack development server for Ruby, and [devweb][] by Russ Cox.
 
 ## Interactions
 
@@ -52,7 +58,7 @@ If you have a `suite_test.go` in the same folder, Looper will include it in ever
 
 ## Thanks
 
-Inspired by Andrea Fazzi's [PrettyAutoTest][pat]. Special thanks to Chris Howey for the [fsnotify][] package.
+Special thanks to Chris Howey for the [fsnotify][] package.
 
 [go]: http://golang.org/
 [fsnotify]: https://github.com/howeyc/fsnotify
