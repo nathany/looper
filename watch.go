@@ -52,7 +52,7 @@ func (watcher *RecursiveWatcher) Run() {
                 if event.IsCreate() {
                     fi, err := os.Stat(event.Name)
                     if err != nil {
-                        log.Println(err)
+                        // eg. stat .subl513.tmp : no such file or directory
                     } else if fi.IsDir() {
                         watcher.AddFolder(event.Name)
                     } else {
