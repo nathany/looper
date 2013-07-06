@@ -6,8 +6,21 @@ import (
 )
 
 func Header() {
-    fmt.Println(ansicolor.Cyan("Looper 0.2.0 is watching your files"))
+    fmt.Println(ansicolor.Cyan("Looper 0.2.1 is watching your files"))
     fmt.Println("Type " + ansicolor.Magenta("help") + " for help.\n")
+}
+
+func DebugEnabled() {
+    DebugMessage("Debug mode enabled.\n")
+}
+
+func DebugMessage(format string, a ...interface{}) {
+    msg := fmt.Sprintf(format, a...)
+    fmt.Println(ansicolor.IntenseBlack(msg))
+}
+
+func DebugError(msg error) {
+    fmt.Println(ansicolor.IntenseBlack(msg.Error()))
 }
 
 func Help() {

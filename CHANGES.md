@@ -2,6 +2,11 @@
 
 Roadmap & voting at the public [Trello board](https://trello.com/b/VvblYiSE).
 
+
+## 0.2.1 / 2013-07-06
+
+* Add --debug flag to help track down #6
+
 ## 0.2.0 / 2013-05-16
 
 * Rename to Looper

@@ -12,13 +12,13 @@ type Runner interface {
     RunAll()
 }
 
-func EventLoop(runner Runner) {
+func EventLoop(runner Runner, debug bool) {
     commands := CommandParser()
     watcher, err := NewRecurisveWatcher("./")
     if err != nil {
         log.Fatal(err)
     }
-    watcher.Run()
+    watcher.Run(debug)
     defer watcher.Close()
 
 out:
@@ -43,11 +43,16 @@ out:
 
 func main() {
     var tags string
+    var debug bool
     flag.StringVar(&tags, "tags", "", "a list of build tags for testing.")
+    flag.BoolVar(&debug, "debug", false, "adds additional logging")
     flag.Parse()
 
     runner := gat.Run{Tags: tags}
 
     Header()
-    EventLoop(runner)
+    if debug {
+        DebugEnabled()
+    }
+    EventLoop(runner, debug)
 }

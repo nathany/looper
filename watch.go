@@ -43,25 +43,37 @@ func (watcher *RecursiveWatcher) AddFolder(folder string) {
     watcher.Folders <- folder
 }
 
-func (watcher *RecursiveWatcher) Run() {
+func (watcher *RecursiveWatcher) Run(debug bool) {
     go func() {
         for {
             select {
             case event := <-watcher.Event:
-                // create a directory
+                // create a file/directory
                 if event.IsCreate() {
                     fi, err := os.Stat(event.Name)
                     if err != nil {
                         // eg. stat .subl513.tmp : no such file or directory
+                        if debug {
+                            DebugError(err)
+                        }
                     } else if fi.IsDir() {
+                        if debug {
+                            DebugMessage("Detected new directory %s", event.Name)
+                        }
                         watcher.AddFolder(event.Name)
                     } else {
+                        if debug {
+                            DebugMessage("Detected new file %s", event.Name)
+                        }
                         watcher.Files <- event.Name // created a file
                     }
                 }
 
                 if event.IsModify() {
                     // modified a file, assuming that you don't modify folders
+                    if debug {
+                        DebugMessage("Detected file modification %s", event.Name)
+                    }
                     watcher.Files <- event.Name
                 }
 
