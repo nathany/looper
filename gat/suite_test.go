@@ -1,8 +1,8 @@
 package gat_test
 
 import (
-    . "launchpad.net/gocheck"
-    "testing"
+	. "launchpad.net/gocheck"
+	"testing"
 )
 
 func Test(t *testing.T) { TestingT(t) }
