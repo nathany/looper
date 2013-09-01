@@ -4,7 +4,7 @@ Looper is a development tool for the [Go Programming Language][go]. It automatic
 
 ## Status
 
-[![Build Status](https://drone.io/github.com/gophertown/looper/status.png)](https://drone.io/github.com/gophertown/looper/latest)
+[![Build Status](https://drone.io/github.com/gophertown/looper/status.png)](https://drone.io/github.com/gophertown/looper/latest) [![Coverage Status](https://coveralls.io/repos/gophertown/looper/badge.png?branch=master)](https://coveralls.io/r/gophertown/looper?branch=master)
 
 This is an *early alpha*. There is still quite a lot to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.). Also, it has only been tested on Mac OS X 10.8.
 
