@@ -1,6 +1,6 @@
 # Looper
 
-Looper is a development tool for the [Go Programming Language][go]. It automatically runs your tests and hot compiles your code when it detects file system changes.
+Looper is a development tool for the [Go Programming Language][go]. It automatically runs your tests and (will eventually) hot compile your code when it detects file system changes.
 
 ## Status
 
