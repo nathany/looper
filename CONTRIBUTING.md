@@ -11,7 +11,7 @@ Contribute upstream:
 
 1. Fork it on GitHub
 2. Add your remote (`git remote add fork git@github.com:mycompany/repo.git`)
-3. Push to the branch (`git push origin my-new-feature`)
+3. Push to the branch (`git push fork my-new-feature`)
 4. Create a new Pull Request on GitHub
 
 For other team members:
