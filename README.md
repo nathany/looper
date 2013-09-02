@@ -48,13 +48,34 @@ Gat is inspired by Andrea Fazzi's [PrettyAutoTest][pat].
 
 ...to be determined...
 
-Blunderbuss is inspired by [shotgun][], the reloading rack development server for Ruby, and [devweb][] by Russ Cox.
+Blunderbuss is inspired by [shotgun][], the reloading rack development server for Ruby.
 
 ## Interactions
 
 * `a`, `all`, `↩`: Run all tests.
 * `h`, `help`: Show help.
 * `e`, `exit`: Quit Looper
+
+## Related Projects
+
+### General purpose
+
+* [Reflex](https://github.com/cespare/reflex) by Caleb Spare
+* [rerun](https://github.com/skelterjohn/rerun) by John Asmuth to autobuild and kill/relaunch
+* [Watch](https://github.com/eaburns/Watch) by Ethan Burns includes acme integration
+* [watcher](https://github.com/tmc/watcher) by Travis Cline
+
+### Web development
+
+* [App Engine devserver](https://developers.google.com/appengine/docs/go/tools/devserver)
+* [devweb](http://code.google.com/p/rsc/source/browse/devweb/) by Russ Cox
+* [shotgun-go](https://github.com/danielheath/shotgun-go) by Daniel Heath
+* [Revel](http://robfig.github.io/revel/) by Rob Figueiredo does Hot Code Reloading
+
+### Comprehensive
+
+* [golab](https://github.com/mb0/lab) Linux IDE by Martin Schnabel
+* [GoTray](http://gotray.extremedev.org/) for OS X
 
 ## Thanks
 
@@ -63,7 +84,6 @@ Special thanks to Chris Howey for the [fsnotify][] package.
 [go]: http://golang.org/
 [fsnotify]: https://github.com/howeyc/fsnotify
 [pat]: https://github.com/remogatto/prettytest
-[devweb]: http://code.google.com/p/rsc/source/browse/devweb/
 [shotgun]: https://rubygems.org/gems/shotgun
 [Gocheck]: http://labix.org/gocheck
 
