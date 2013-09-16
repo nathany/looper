@@ -36,9 +36,9 @@ Watching path ./
 
 ## Gat (Go Autotest)
 
-Packages are the unit of compilation in Go. By convention, each package has a separate folder, though a single folder may also have a `_test` package for black box testing.
+Packages are the unit of compilation in Go. By convention, each package has a separate folder, though a single folder may also have a `*_test` package for black box testing.
 
-When Looper detects a change to a *.go file, it will build & run the tests for that directory. You can also run all tests against all packages at once.
+When Looper detects a change to a `*.go file`, it will build & run the tests for that directory. You can also run all tests against all packages at once.
 
 To setup a Suite definition ([Gocheck][], [PrettyTest][pat]), additional Checkers, or other test helpers, use any test file you like in the same folder (eg. `suite_test.go`).
 
