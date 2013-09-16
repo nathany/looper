@@ -4,7 +4,7 @@ Roadmap & voting at the public [Trello board](https://trello.com/b/VvblYiSE).
 
 ## v0.2.1 / 2013-07-06
 
-* Add --debug flag to help track down #6 Tests run twice
+* Add --debug flag to help track down [#6] Tests run twice
 
 ## v0.2.0 / 2013-05-16
 
