@@ -36,6 +36,8 @@ Type help for help.
 Watching path ./
 ```
 
+Note: There is [a known issue](https://github.com/gophertown/looper/issues/6) where tests may run multiple times on OS X. Until this is resolved, please add your development folder to the Spotlight Privacy in System Preferences.
+
 ## Gat (Go Autotest)
 
 Packages are the unit of compilation in Go. By convention, each package has a separate folder, though a single folder may also have a `*_test` package for black box testing.
