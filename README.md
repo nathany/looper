@@ -69,6 +69,11 @@ Blunderbuss is inspired by [shotgun][], the reloading rack development server fo
 * [Watch](https://github.com/eaburns/Watch) by Ethan Burns includes acme integration
 * [watcher](https://github.com/tmc/watcher) by Travis Cline
 
+### Testing
+
+* [PrettyAutoTest][pat] by Andrea Fazzi
+* [Glitch](https://github.com/levicook/glitch) by Levi Cook
+
 ### Web development
 
 * [App Engine devserver](https://developers.google.com/appengine/docs/go/tools/devserver)
