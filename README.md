@@ -1,15 +1,14 @@
-[![Stories in Ready](https://badge.waffle.io/gophertown/looper.png?label=ready&title=Ready)](https://waffle.io/gophertown/looper)
 # Looper
 
 Looper is a development tool for the [Go Programming Language][go]. It automatically runs your tests and (will eventually) hot compile your code when it detects file system changes.
 
 ## Status
 
-[![Build Status](https://drone.io/github.com/gophertown/looper/status.png)](https://drone.io/github.com/gophertown/looper/latest) [![GoDoc](https://godoc.org/github.com/gophertown/looper?status.png)](http://godoc.org/github.com/gophertown/looper)
+[![Build Status](https://drone.io/github.com/gophertown/looper/status.png)](https://drone.io/github.com/gophertown/looper/latest) [![GoDoc](https://godoc.org/github.com/gophertown/looper?status.png)](http://godoc.org/github.com/gophertown/looper) [![Stories in Ready](https://badge.waffle.io/gophertown/looper.png?label=ready&title=Ready)](https://waffle.io/gophertown/looper)
 
 This is an *early alpha*. There is still quite a lot to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.).
 
-See the public [Trello board](https://trello.com/b/VvblYiSE) for the Roadmap.
+See the public [Trello board](https://trello.com/b/VvblYiSE) for the Roadmap. Looking into [Waffle](https://waffle.io/gophertown/looper) as an alternative.
 
 ## Get Going
 
