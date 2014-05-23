@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/gophertown/looper.png?label=ready&title=Ready)](https://waffle.io/gophertown/looper)
 # Looper
 
 Looper is a development tool for the [Go Programming Language][go]. It automatically runs your tests and (will eventually) hot compile your code when it detects file system changes.
