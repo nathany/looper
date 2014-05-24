@@ -2,10 +2,11 @@ package main
 
 import (
 	"errors"
-	"github.com/howeyc/fsnotify"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/gophertown/fsnotify"
 )
 
 type RecursiveWatcher struct {
@@ -36,7 +37,7 @@ func NewRecurisveWatcher(path string) (*RecursiveWatcher, error) {
 }
 
 func (watcher *RecursiveWatcher) AddFolder(folder string) {
-	err := watcher.WatchFlags(folder, fsnotify.FSN_CREATE|fsnotify.FSN_MODIFY)
+	err := watcher.Watch(folder)
 	if err != nil {
 		log.Println("Error watching: ", folder, err)
 	}
