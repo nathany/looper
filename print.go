@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/koyachi/go-term-ansicolor/ansicolor"
 )
 
 func Header() {
-	fmt.Println(ansicolor.Cyan("Looper 0.2.1 is watching your files"))
+	fmt.Println(ansicolor.Cyan("Looper 0.2.2 is watching your files"))
 	fmt.Println("Type " + ansicolor.Magenta("help") + " for help.\n")
 }
 
