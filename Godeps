@@ -1,6 +1,0 @@
-github.com/koyachi/go-term-ansicolor/ansicolor  6f81280f93607303140434290f00ee0a269904ad
-github.com/bobappleyard/readline      b92e3eea87ef1eb6717e8d939684af3fb005980a
-github.com/howeyc/fsnotify            7beb45183d2ab48bfc9616d9a019513a123a4983
-
-# Test dependencies
-# launchpad.net/gocheck                 r2013.03.03
