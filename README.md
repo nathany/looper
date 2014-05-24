@@ -4,7 +4,7 @@ Looper is a development tool for the [Go Programming Language][go]. It automatic
 
 ## Status
 
-[![Build Status](https://drone.io/github.com/gophertown/looper/status.png)](https://drone.io/github.com/gophertown/looper/latest) [![GoDoc](https://godoc.org/github.com/gophertown/looper?status.png)](http://godoc.org/github.com/gophertown/looper) [![Stories in Ready](https://badge.waffle.io/gophertown/looper.png?label=ready&title=Ready)](https://waffle.io/gophertown/looper)
+[![Build Status](https://drone.io/github.com/gophertown/looper/status.png)](https://drone.io/github.com/gophertown/looper/latest) [![Coverage](http://gocover.io/_badge/github.com/gophertown/looper)](http://gocover.io/github.com/gophertown/looper) [![GoDoc](https://godoc.org/github.com/gophertown/looper?status.png)](http://godoc.org/github.com/gophertown/looper) [![Stories in Ready](https://badge.waffle.io/gophertown/looper.png?label=ready&title=Ready)](https://waffle.io/gophertown/looper)
 
 This is an *early alpha*. There is still quite a lot to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.).
 
