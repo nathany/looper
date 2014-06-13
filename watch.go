@@ -37,7 +37,7 @@ func NewRecurisveWatcher(path string) (*RecursiveWatcher, error) {
 }
 
 func (watcher *RecursiveWatcher) AddFolder(folder string) {
-	err := watcher.Watch(folder)
+	err := watcher.Add(folder)
 	if err != nil {
 		log.Println("Error watching: ", folder, err)
 	}
@@ -48,9 +48,9 @@ func (watcher *RecursiveWatcher) Run(debug bool) {
 	go func() {
 		for {
 			select {
-			case event := <-watcher.Event:
+			case event := <-watcher.Events:
 				// create a file/directory
-				if event.IsCreate() {
+				if event.Op&fsnotify.Create == fsnotify.Create {
 					fi, err := os.Stat(event.Name)
 					if err != nil {
 						// eg. stat .subl513.tmp : no such file or directory
@@ -70,7 +70,7 @@ func (watcher *RecursiveWatcher) Run(debug bool) {
 					}
 				}
 
-				if event.IsModify() {
+				if event.Op&fsnotify.Write == fsnotify.Write && !(event.Op&fsnotify.Chmod == fsnotify.Chmod) {
 					// modified a file, assuming that you don't modify folders
 					if debug {
 						DebugMessage("Detected file modification %s", event.Name)
@@ -78,7 +78,7 @@ func (watcher *RecursiveWatcher) Run(debug bool) {
 					watcher.Files <- event.Name
 				}
 
-			case err := <-watcher.Error:
+			case err := <-watcher.Errors:
 				log.Println("error", err)
 			}
 		}
