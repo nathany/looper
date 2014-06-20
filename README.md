@@ -4,11 +4,11 @@ Looper is a development tool for the [Go Programming Language][go]. It automatic
 
 ## Status
 
-[![Build Status](https://drone.io/github.com/gophertown/looper/status.png)](https://drone.io/github.com/gophertown/looper/latest) [![Coverage](http://gocover.io/_badge/github.com/gophertown/looper)](http://gocover.io/github.com/gophertown/looper) [![GoDoc](https://godoc.org/github.com/gophertown/looper?status.png)](http://godoc.org/github.com/gophertown/looper) [![Stories in Ready](https://badge.waffle.io/gophertown/looper.png?label=ready&title=Ready)](https://waffle.io/gophertown/looper)
+[![Build Status](https://drone.io/github.com/nathany/looper/status.png)](https://drone.io/github.com/nathany/looper/latest) [![Coverage](http://gocover.io/_badge/github.com/nathany/looper)](http://gocover.io/github.com/nathany/looper) [![GoDoc](https://godoc.org/github.com/nathany/looper?status.png)](http://godoc.org/github.com/nathany/looper) [![Stories in Ready](https://badge.waffle.io/nathany/looper.png?label=ready&title=Ready)](https://waffle.io/nathany/looper)
 
 This is an *early alpha*. There is still quite a lot to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.).
 
-See the public [Trello board](https://trello.com/b/VvblYiSE) for the Roadmap. Looking into [Waffle](https://waffle.io/gophertown/looper) as an alternative.
+See the public [Trello board](https://trello.com/b/VvblYiSE) for the Roadmap. Looking into [Waffle](https://waffle.io/nathany/looper) as an alternative.
 
 ## Get Going
 
@@ -23,7 +23,7 @@ Note: If you upgraded to Xcode 5 you will need Go v1.2.0-rc.1 or better.
 To install Looper, or to update your installation, run:
 
 ``` console
-$ go get -u github.com/gophertown/looper
+$ go get -u github.com/nathany/looper
 ```
 
 Then run `looper` in your project folder:
@@ -36,7 +36,7 @@ Type help for help.
 Watching path ./
 ```
 
-Note: There is [a known issue](https://github.com/gophertown/looper/issues/6) where tests may run multiple times on OS X. Until this is resolved, please add your development folder to the Spotlight Privacy in System Preferences.
+Note: There is [a known issue](https://github.com/nathany/looper/issues/6) where tests may run multiple times on OS X. Until this is resolved, please add your development folder to the Spotlight Privacy in System Preferences.
 
 ## Gat (Go Autotest)
 

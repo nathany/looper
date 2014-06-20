@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/gophertown/fsnotify"
+	"github.com/nathany/fsnotify"
 )
 
 type RecursiveWatcher struct {

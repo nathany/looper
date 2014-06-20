@@ -3,8 +3,9 @@ package main
 
 import (
 	"flag"
-	"github.com/gophertown/looper/gat"
 	"log"
+
+	"github.com/nathany/looper/gat"
 )
 
 type Runner interface {
