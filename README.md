@@ -4,11 +4,11 @@ Looper is a development tool for the [Go Programming Language][go]. It automatic
 
 ## Status
 
-[![Build Status](https://drone.io/github.com/nathany/looper/status.png)](https://drone.io/github.com/nathany/looper/latest) [![Coverage](http://gocover.io/_badge/github.com/nathany/looper)](http://gocover.io/github.com/nathany/looper) [![GoDoc](https://godoc.org/github.com/nathany/looper?status.png)](http://godoc.org/github.com/nathany/looper) [![Stories in Ready](https://badge.waffle.io/nathany/looper.png?label=ready&title=Ready)](https://waffle.io/nathany/looper)
+[![Build Status](https://drone.io/github.com/nathany/looper/status.png)](https://drone.io/github.com/nathany/looper/latest) [![Coverage](http://gocover.io/_badge/github.com/nathany/looper)](http://gocover.io/github.com/nathany/looper) [![GoDoc](https://godoc.org/github.com/nathany/looper?status.png)](http://godoc.org/github.com/nathany/looper)
 
 This is an *early alpha*. There is still quite a lot to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.).
 
-See the public [Trello board](https://trello.com/b/VvblYiSE) for the Roadmap. Looking into [Waffle](https://waffle.io/nathany/looper) as an alternative.
+See the public [Trello board](https://trello.com/b/VvblYiSE) for the Roadmap.
 
 ## Get Going
 
