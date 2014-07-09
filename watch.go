@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/fsnotify/fsnotify"
+	"github.com/go-fsnotify/fsnotify"
 )
 
 type RecursiveWatcher struct {
@@ -70,7 +70,7 @@ func (watcher *RecursiveWatcher) Run(debug bool) {
 					}
 				}
 
-				if event.Op&fsnotify.Write == fsnotify.Write && !(event.Op&fsnotify.Chmod == fsnotify.Chmod) {
+				if event.Op&fsnotify.Write == fsnotify.Write {
 					// modified a file, assuming that you don't modify folders
 					if debug {
 						DebugMessage("Detected file modification %s", event.Name)
