@@ -24,6 +24,12 @@ If you are on Ubuntu, you'll need the readline development headers:
 sudo apt-get install libreadline-dev
 ```
 
+If you are on Ubuntu, you'll need the readline development headers:
+
+```console
+sudo apt-get install libreadline-dev
+```
+
 To install Looper, or to update your installation, run:
 
 ``` console
