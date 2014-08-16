@@ -18,8 +18,6 @@ If you are on OS X, you need to first install GNU Readline via [Homebrew](http:/
 $ brew install readline
 ```
 
-Note: If you upgraded to Xcode 5 you will need Go v1.2.0-rc.1 or better.
-
 If you are on Ubuntu, you'll need the readline development headers:
 
 ```console
