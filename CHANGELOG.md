@@ -2,6 +2,10 @@
 
 Roadmap & voting at the public [Trello board](https://trello.com/b/VvblYiSE).
 
+## master
+
+* Switch tests from launchpad to gopkg.in/check.v1 (thanks @aibou)
+
 ## v0.2.3 / 2014-06-12
 
 * Update to new gophertown/fsnotify API (v0.11.0).
