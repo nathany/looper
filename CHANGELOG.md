@@ -2,8 +2,9 @@
 
 Roadmap & voting at the public [Trello board](https://trello.com/b/VvblYiSE).
 
-## master
+## v0.3.0 / 2014-11-12
 
+* Add Godep support `godeps go test` (thanks @sudhirj)
 * Switch tests from launchpad to gopkg.in/check.v1 (thanks @aibou)
 
 ## v0.2.3 / 2014-06-12
