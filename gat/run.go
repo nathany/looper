@@ -2,6 +2,7 @@ package gat
 
 import (
 	"log"
+	"os"
 	"os/exec"
 	"path/filepath"
 )
@@ -29,7 +30,14 @@ func (run Run) goTest(test_files string) {
 	}
 	args = append(args, test_files)
 
-	cmd := exec.Command("go", args...)
+	command := "go"
+
+	if _, err := os.Stat("Godeps"); err == nil {
+		args = append([]string{"go"}, args...)
+		command = "godep"
+	}
+
+	cmd := exec.Command(command, args...)
 	// cmd.Dir watchDir = ./
 
 	PrintCommand(cmd.Args) // includes "go"
