@@ -32,7 +32,7 @@ func (run Run) goTest(test_files string) {
 
 	command := "go"
 
-	if _, err := os.Stat("Godeps"); err == nil {
+	if _, err := os.Stat("Godeps/Godeps.json"); err == nil {
 		args = append([]string{"go"}, args...)
 		command = "godep"
 	}
