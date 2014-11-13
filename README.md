@@ -104,7 +104,7 @@ Blunderbuss is inspired by [shotgun][], the reloading rack development server fo
 Special thanks to Chris Howey for the [fsnotify][] package.
 
 [go]: http://golang.org/
-[fsnotify]: https://github.com/howeyc/fsnotify
+[fsnotify]: http://fsnotify.org/
 [pat]: https://github.com/remogatto/prettytest
 [shotgun]: https://rubygems.org/gems/shotgun
 [Gocheck]: http://labix.org/gocheck
