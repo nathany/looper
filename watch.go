@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/go-fsnotify/fsnotify"
 )
@@ -61,7 +62,9 @@ func (watcher *RecursiveWatcher) Run(debug bool) {
 						if debug {
 							DebugMessage("Detected new directory %s", event.Name)
 						}
-						watcher.AddFolder(event.Name)
+						if !shouldIgnoreFile(filepath.Base(event.Name)) {
+							watcher.AddFolder(event.Name)
+						}
 					} else {
 						if debug {
 							DebugMessage("Detected new file %s", event.Name)
@@ -85,7 +88,7 @@ func (watcher *RecursiveWatcher) Run(debug bool) {
 	}()
 }
 
-// returns a slice of subfolders (recursive), including the folder passed in
+// Subfolders returns a slice of subfolders (recursive), including the folder provided.
 func Subfolders(path string) (paths []string) {
 	filepath.Walk(path, func(newPath string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -95,14 +98,18 @@ func Subfolders(path string) (paths []string) {
 		if info.IsDir() {
 			name := info.Name()
 			// skip folders that begin with a dot
-			hidden := filepath.HasPrefix(name, ".") && name != "." && name != ".."
-			if hidden {
+			if shouldIgnoreFile(name) && name != "." && name != ".." {
 				return filepath.SkipDir
-			} else {
-				paths = append(paths, newPath)
 			}
+			paths = append(paths, newPath)
 		}
 		return nil
 	})
 	return paths
+}
+
+// shouldIgnoreFile determines if a file should be ignored.
+// File names that begin with "." or "_" are ignored by the go tool.
+func shouldIgnoreFile(name string) bool {
+	return strings.HasPrefix(name, ".") || strings.HasPrefix(name, "_")
 }
