@@ -88,8 +88,9 @@ Blunderbuss is inspired by [shotgun][], the reloading rack development server fo
 
 * [App Engine devserver](https://developers.google.com/appengine/docs/go/tools/devserver)
 * [devweb](http://code.google.com/p/rsc/source/browse/devweb/) by Russ Cox
+* [gin](https://github.com/codegangsta/gin) by Jeremy Saenz
 * [shotgun-go](https://github.com/danielheath/shotgun-go) by Daniel Heath
-* [Revel](http://robfig.github.io/revel/) by Rob Figueiredo does Hot Code Reloading
+* [Revel](http://revel.github.io/) by Rob Figueiredo does Hot Code Reloading
 
 ### Comprehensive
 
