@@ -2,7 +2,7 @@
 
 Looper is a development tool for the [Go Programming Language][go]. It automatically runs your tests and (will eventually) hot compile your code when it detects file system changes.
 
-![fsnotify screenshot](https://raw.githubusercontent.com/nathany/looper/master/fsnotify.png)
+![Looper screenshot](https://raw.githubusercontent.com/nathany/looper/master/looper.png)
 
 ## Status
 
