@@ -6,7 +6,7 @@ Looper is a development tool for the [Go Programming Language][go]. It automatic
 
 ## Status
 
-[![Stories in Ready](https://badge.waffle.io/nathany/looper.svg?label=ready&title=Ready)](http://waffle.io/nathany/looper)  [![Build Status](https://drone.io/github.com/nathany/looper/status.png)](https://drone.io/github.com/nathany/looper/latest) [![Coverage](http://gocover.io/_badge/github.com/nathany/looper)](http://gocover.io/github.com/nathany/looper) [![GoDoc](https://godoc.org/github.com/nathany/looper?status.png)](http://godoc.org/github.com/nathany/looper) 
+[![Stories in Ready](https://badge.waffle.io/nathany/looper.svg?label=ready&title=Ready)](http://waffle.io/nathany/looper)  [![Build Status](https://drone.io/github.com/nathany/looper/status.png)](https://drone.io/github.com/nathany/looper/latest) [![Coverage](http://gocover.io/_badge/github.com/nathany/looper)](http://gocover.io/github.com/nathany/looper) [![GoDoc](https://godoc.org/github.com/nathany/looper?status.svg)](http://godoc.org/github.com/nathany/looper) 
 
 [![Throughput Graph](https://graphs.waffle.io/nathany/looper/throughput.svg)](https://waffle.io/nathany/looper/metrics)
 
