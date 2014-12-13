@@ -6,11 +6,11 @@ Looper is a development tool for the [Go Programming Language][go]. It automatic
 
 ## Status
 
-[![Build Status](https://drone.io/github.com/nathany/looper/status.png)](https://drone.io/github.com/nathany/looper/latest) [![Coverage](http://gocover.io/_badge/github.com/nathany/looper)](http://gocover.io/github.com/nathany/looper) [![GoDoc](https://godoc.org/github.com/nathany/looper?status.png)](http://godoc.org/github.com/nathany/looper)
+[![Stories in Ready](https://badge.waffle.io/nathany/looper.svg?label=ready&title=Ready)](http://waffle.io/nathany/looper)  [![Build Status](https://drone.io/github.com/nathany/looper/status.png)](https://drone.io/github.com/nathany/looper/latest) [![Coverage](http://gocover.io/_badge/github.com/nathany/looper)](http://gocover.io/github.com/nathany/looper) [![GoDoc](https://godoc.org/github.com/nathany/looper?status.png)](http://godoc.org/github.com/nathany/looper) 
+
+[![Throughput Graph](https://graphs.waffle.io/nathany/looper/throughput.svg)](https://waffle.io/nathany/looper/metrics)
 
 This is an *early alpha*. There is still quite a lot to do (Hot Compiles, Growl notifications, and interactions for profiling, benchmarking, etc.).
-
-See the public [Trello board](https://trello.com/b/VvblYiSE) for the Roadmap.
 
 ## Get Going
 
@@ -18,12 +18,6 @@ If you are on OS X, you need to first install GNU Readline via [Homebrew](http:/
 
 ``` console
 $ brew install readline
-```
-
-If you are on Ubuntu, you'll need the readline development headers:
-
-```console
-sudo apt-get install libreadline-dev
 ```
 
 If you are on Ubuntu, you'll need the readline development headers:
@@ -48,7 +42,7 @@ Type help for help.
 Watching path ./
 ```
 
-Note: There is [a known issue](https://github.com/nathany/looper/issues/6) where tests may run multiple times on OS X. Until this is resolved, please add your development folder to the Spotlight Privacy in System Preferences.
+Note: There is [a known issue](https://github.com/nathany/looper/issues/6) where tests may run multiple times on OS X. Until this is resolved, please add your development folder to Spotlight Privacy in System Preferences.
 
 ## Gat (Go Autotest)
 
@@ -64,7 +58,7 @@ Gat is inspired by Andrea Fazzi's [PrettyAutoTest][pat].
 
 ...to be determined...
 
-Blunderbuss is inspired by [shotgun][], the reloading rack development server for Ruby.
+Blunderbuss is inspired by [shotgun][], both in name and purpose.
 
 ## Interactions
 
@@ -91,6 +85,7 @@ Blunderbuss is inspired by [shotgun][], the reloading rack development server fo
 * [App Engine devserver](https://developers.google.com/appengine/docs/go/tools/devserver)
 * [devweb](http://code.google.com/p/rsc/source/browse/devweb/) by Russ Cox
 * [gin](https://github.com/codegangsta/gin) by Jeremy Saenz
+* [rego](https://github.com/sqs/rego) by Quinn Slack
 * [shotgun-go](https://github.com/danielheath/shotgun-go) by Daniel Heath
 * [Revel](http://revel.github.io/) by Rob Figueiredo does Hot Code Reloading
 
