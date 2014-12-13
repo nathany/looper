@@ -1,19 +1,20 @@
 package main
 
 import (
-	"github.com/bobappleyard/readline"
 	"io"
 	"log"
 	"strings"
+
+	"github.com/bobappleyard/readline"
 )
 
 type Command int
 
 const (
-	UNKNOWN Command = iota
-	HELP
-	EXIT
-	RUN_ALL
+	Unknown Command = iota
+	Help
+	Exit
+	RunAll
 )
 
 func CommandParser() <-chan Command {
@@ -23,7 +24,7 @@ func CommandParser() <-chan Command {
 		for {
 			in, err := readline.String("")
 			if err == io.EOF { // Ctrl+D
-				commands <- EXIT
+				commands <- Exit
 				break
 			} else if err != nil {
 				log.Fatal(err)
@@ -41,14 +42,14 @@ func NormalizeCommand(in string) (c Command) {
 	command := strings.ToLower(strings.TrimSpace(in))
 	switch command {
 	case "exit", "e", "x", "quit", "q":
-		c = EXIT
+		c = Exit
 	case "all", "a", "":
-		c = RUN_ALL
+		c = RunAll
 	case "help", "h", "?":
-		c = HELP
+		c = Help
 	default:
 		UnknownCommand(command)
-		c = UNKNOWN
+		c = Unknown
 	}
 	return c
 }

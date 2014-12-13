@@ -9,8 +9,8 @@ func TestNormalizeCommand(t *testing.T) {
 		input string
 		cmd   Command
 	}{
-		{" Exit", EXIT},
-		{"sudo", UNKNOWN},
+		{" Exit", Exit},
+		{"sudo", Unknown},
 	}
 
 	for _, c := range commands {

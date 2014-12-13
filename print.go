@@ -24,7 +24,7 @@ func DebugError(msg error) {
 	fmt.Println(ansicolor.IntenseBlack(msg.Error()))
 }
 
-func Help() {
+func DisplayHelp() {
 	fmt.Println(ansicolor.Magenta("\nInteractions:\n"))
 	fmt.Println("  * a, all  Run all tests")
 	fmt.Println("  * h, help You found it")

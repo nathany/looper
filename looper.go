@@ -31,12 +31,12 @@ out:
 			PrintWatching(folder)
 		case command := <-commands:
 			switch command {
-			case EXIT:
+			case Exit:
 				break out
-			case RUN_ALL:
+			case RunAll:
 				runner.RunAll()
-			case HELP:
-				Help()
+			case Help:
+				DisplayHelp()
 			}
 		}
 	}
