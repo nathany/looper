@@ -2,6 +2,10 @@
 
 Roadmap & voting at the public [Trello board](https://trello.com/b/VvblYiSE).
 
+## unreleased
+
+* Fix typo in NewRecursiveWatcher (thanks @corrupt).
+
 ## v0.3.2 / 2014-11-13
 
 * Don't watch directories starting with an underscore (like the go tool).
