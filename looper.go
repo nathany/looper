@@ -15,7 +15,7 @@ type Runner interface {
 
 func EventLoop(runner Runner, debug bool) {
 	commands := CommandParser()
-	watcher, err := NewRecurisveWatcher("./")
+	watcher, err := NewRecursiveWatcher("./")
 	if err != nil {
 		log.Fatal(err)
 	}
