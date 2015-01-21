@@ -16,7 +16,7 @@ type RecursiveWatcher struct {
 	Folders chan string
 }
 
-func NewRecurisveWatcher(path string) (*RecursiveWatcher, error) {
+func NewRecursiveWatcher(path string) (*RecursiveWatcher, error) {
 	folders := Subfolders(path)
 	if len(folders) == 0 {
 		return nil, errors.New("No folders to watch.")
