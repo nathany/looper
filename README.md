@@ -20,10 +20,18 @@ If you are on OS X, you need to first install GNU Readline via [Homebrew](http:/
 $ brew install readline
 ```
 
-If you are on Ubuntu, you'll need the readline development headers:
+If you are on Linux, you'll need the readline development headers:
+
+Debian/Ubuntu:
 
 ```console
 sudo apt-get install libreadline-dev
+```
+
+Red Hat-based systems:
+
+```console
+sudo yum install readline-devel
 ```
 
 To install Looper, or to update your installation, run:
