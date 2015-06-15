@@ -3,7 +3,9 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/nathany/looper/gat"
 )
@@ -47,9 +49,16 @@ func main() {
 	var debug bool
 	flag.StringVar(&tags, "tags", "", "a list of build tags for testing.")
 	flag.BoolVar(&debug, "debug", false, "adds additional logging")
+	flag.Usage = func() {
+		fmt.Printf("Usage: %s [options] [-- [go test options]]\n", os.Args[0])
+		flag.PrintDefaults()
+		fmt.Println(`
+  EXAMPLE: Specify a -run option to go test, run looper in debug mode:
+      looper -debug -- -run MyTest`)
+	}
 	flag.Parse()
 
-	runner := gat.Run{Tags: tags}
+	runner := gat.Run{Tags: tags, Args: flag.Args()}
 
 	Header()
 	if debug {

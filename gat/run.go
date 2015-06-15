@@ -9,6 +9,9 @@ import (
 
 type Run struct {
 	Tags string
+
+	// Additional args to pass to `go test`
+	Args []string
 }
 
 func (run Run) RunAll() {
@@ -28,6 +31,11 @@ func (run Run) goTest(test_files string) {
 	if len(run.Tags) > 0 {
 		args = append(args, []string{"-tags", run.Tags}...)
 	}
+
+	for _, arg := range run.Args {
+		args = append(args, arg)
+	}
+
 	args = append(args, test_files)
 
 	command := "go"

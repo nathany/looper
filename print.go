@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 
 	"github.com/koyachi/go-term-ansicolor/ansicolor"
@@ -8,6 +9,15 @@ import (
 
 func Header() {
 	fmt.Println(ansicolor.Cyan("Looper 0.3.2 is watching your files"))
+
+	testArgLen := len(flag.Args())
+	if testArgLen > 0 {
+		fmt.Printf(ansicolor.Green("Passing %d addition argument(s) to go test:\n"), testArgLen)
+		for _, arg := range flag.Args() {
+			fmt.Printf(ansicolor.Green("  %s\n"), arg)
+		}
+	}
+
 	fmt.Println("Type " + ansicolor.Magenta("help") + " for help.\n")
 }
 
