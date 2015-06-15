@@ -53,15 +53,27 @@ func isGoFile(file string) bool {
 }
 
 func (run Run) buildCmdArgs(test_files string) []string {
+	var haveAddedFiles bool
+
 	// go test command: test
 	args := []string{"test"}
 
 	// additional args passed in on looper cmd line
+	// if the arg is {} then the files will be places there
+	// if {} is not specifed then they will be appened
+	// to the end of the go test call
 	for _, arg := range run.Args {
-		args = append(args, arg)
+		if arg == "{}" {
+			args = append(args, test_files)
+			haveAddedFiles = true
+		} else {
+			args = append(args, arg)
+		}
 	}
 
-	args = append(args, test_files)
+	if !haveAddedFiles {
+		args = append(args, test_files)
+	}
 
 	return args
 }
