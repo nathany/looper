@@ -8,7 +8,8 @@ import (
 )
 
 type Run struct {
-	Tags string
+	// Additional args to pass to `go test`
+	Args []string
 }
 
 func (run Run) RunAll() {
@@ -24,12 +25,7 @@ func (run Run) RunOnChange(file string) {
 }
 
 func (run Run) goTest(test_files string) {
-	args := []string{"test"}
-	if len(run.Tags) > 0 {
-		args = append(args, []string{"-tags", run.Tags}...)
-	}
-	args = append(args, test_files)
-
+	args := run.buildCmdArgs(test_files)
 	command := "go"
 
 	if _, err := os.Stat("Godeps/Godeps.json"); err == nil {
@@ -54,4 +50,30 @@ func (run Run) goTest(test_files string) {
 
 func isGoFile(file string) bool {
 	return filepath.Ext(file) == ".go"
+}
+
+func (run Run) buildCmdArgs(test_files string) []string {
+	var haveAddedFiles bool
+
+	// go test command: test
+	args := []string{"test"}
+
+	// additional args passed in on looper cmd line
+	// if the arg is {} then the files will be places there
+	// if {} is not specifed then they will be appened
+	// to the end of the go test call
+	for _, arg := range run.Args {
+		if arg == "{}" {
+			args = append(args, test_files)
+			haveAddedFiles = true
+		} else {
+			args = append(args, arg)
+		}
+	}
+
+	if !haveAddedFiles {
+		args = append(args, test_files)
+	}
+
+	return args
 }

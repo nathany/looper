@@ -6,8 +6,17 @@ import (
 	"github.com/koyachi/go-term-ansicolor/ansicolor"
 )
 
-func Header() {
-	fmt.Println(ansicolor.Cyan("Looper 0.3.2 is watching your files"))
+func Header(gtargs []string) {
+	fmt.Println(ansicolor.Cyan("Looper 0.3.4 is watching your files"))
+
+	if len(gtargs) > 0 {
+		fmt.Printf(ansicolor.Green("Passing %d addition argument(s) to go test:\n"), len(gtargs))
+		for _, arg := range gtargs {
+			fmt.Printf(ansicolor.Green("  %s\n"), arg)
+		}
+		fmt.Println(ansicolor.Green("  <files>"))
+	}
+
 	fmt.Println("Type " + ansicolor.Magenta("help") + " for help.\n")
 }
 

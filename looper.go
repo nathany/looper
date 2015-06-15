@@ -2,8 +2,9 @@
 package main
 
 import (
-	"flag"
 	"log"
+	"os"
+	"strconv"
 
 	"github.com/nathany/looper/gat"
 )
@@ -43,15 +44,14 @@ out:
 }
 
 func main() {
-	var tags string
-	var debug bool
-	flag.StringVar(&tags, "tags", "", "a list of build tags for testing.")
-	flag.BoolVar(&debug, "debug", false, "adds additional logging")
-	flag.Parse()
+	// Get debug status from env var, if error ignore and debug is off
+	debug, _ := strconv.ParseBool(os.Getenv("LOOPER_DEBUG"))
 
-	runner := gat.Run{Tags: tags}
+	// Pass all args to go test, except the name of the looper command
+	gtargs := os.Args[1:len(os.Args)]
+	runner := gat.Run{Args: gtargs}
 
-	Header()
+	Header(gtargs)
 	if debug {
 		DebugEnabled()
 	}
