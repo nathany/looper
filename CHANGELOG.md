@@ -2,8 +2,9 @@
 
 Roadmap & voting at the public [Trello board](https://trello.com/b/VvblYiSE).
 
-## unreleased
+## v0.3.3 / 2015-08-23
 
+* Skip vendor folder on full test run when GO15VENDOREXPERIMENT is set.
 * Fix typo in NewRecursiveWatcher (thanks @corrupt).
 
 ## v0.3.2 / 2014-11-13
