@@ -45,11 +45,16 @@ out:
 func main() {
 	var tags string
 	var debug bool
+	var command string
 	flag.StringVar(&tags, "tags", "", "a list of build tags for testing.")
 	flag.BoolVar(&debug, "debug", false, "adds additional logging")
+	flag.StringVar(&command, "gotool", "go", "name of go command to run tests with (e.g., go, goapp")
 	flag.Parse()
 
-	runner := gat.Run{Tags: tags}
+	runner := gat.Run{
+		Tags:    tags,
+		Command: command,
+	}
 
 	Header()
 	if debug {
