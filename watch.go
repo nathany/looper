@@ -10,6 +10,9 @@ import (
 	"github.com/go-fsnotify/fsnotify"
 )
 
+// IgnoreVendor if using Go 1.5 vendor experiment
+var IgnoreVendor = (os.Getenv("GO15VENDOREXPERIMENT") == "1")
+
 type RecursiveWatcher struct {
 	*fsnotify.Watcher
 	Files   chan string
@@ -111,5 +114,6 @@ func Subfolders(path string) (paths []string) {
 // shouldIgnoreFile determines if a file should be ignored.
 // File names that begin with "." or "_" are ignored by the go tool.
 func shouldIgnoreFile(name string) bool {
-	return strings.HasPrefix(name, ".") || strings.HasPrefix(name, "_")
+	isVendor := IgnoreVendor && name == "vendor"
+	return isVendor || strings.HasPrefix(name, ".") || strings.HasPrefix(name, "_")
 }
