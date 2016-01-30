@@ -44,12 +44,14 @@ out:
 
 func main() {
 	var tags string
+	var timeout string
 	var debug bool
 	flag.StringVar(&tags, "tags", "", "a list of build tags for testing.")
+	flag.StringVar(&timeout, "timeout", "", "a duration to timeout a single test after")
 	flag.BoolVar(&debug, "debug", false, "adds additional logging")
 	flag.Parse()
 
-	runner := gat.Run{Tags: tags}
+	runner := gat.Run{Tags: tags, Timeout: timeout}
 
 	Header()
 	if debug {
