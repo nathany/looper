@@ -12,7 +12,8 @@ import (
 var IgnoreVendor = (os.Getenv("GO15VENDOREXPERIMENT") == "1")
 
 type Run struct {
-	Tags string
+	Tags    string
+	Timeout string
 }
 
 func (run Run) RunAll() {
@@ -34,6 +35,9 @@ func (run Run) RunOnChange(file string) {
 
 func (run Run) goTest(pkgs ...string) {
 	args := []string{"test"}
+	if len(run.Timeout) > 0 {
+		args = append(args, []string{"-timeout", run.Timeout}...)
+	}
 	if len(run.Tags) > 0 {
 		args = append(args, []string{"-tags", run.Tags}...)
 	}
