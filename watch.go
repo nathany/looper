@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/go-fsnotify/fsnotify"
 )
@@ -46,6 +47,22 @@ func (watcher *RecursiveWatcher) AddFolder(folder string) {
 }
 
 func (watcher *RecursiveWatcher) Run(debug bool) {
+	var blocked bool
+	go func() {
+		timer := time.NewTicker(500 * time.Millisecond)
+		for {
+			<-timer.C
+			blocked = false
+		}
+	}()
+
+	throttledSend := func(event string) {
+		if !blocked {
+			watcher.Files <- event
+			blocked = true
+		}
+	}
+
 	go func() {
 		for {
 			select {
@@ -69,7 +86,7 @@ func (watcher *RecursiveWatcher) Run(debug bool) {
 						if debug {
 							DebugMessage("Detected new file %s", event.Name)
 						}
-						watcher.Files <- event.Name // created a file
+						throttledSend(event.Name)
 					}
 				}
 
@@ -78,7 +95,7 @@ func (watcher *RecursiveWatcher) Run(debug bool) {
 					if debug {
 						DebugMessage("Detected file modification %s", event.Name)
 					}
-					watcher.Files <- event.Name
+					throttledSend(event.Name)
 				}
 
 			case err := <-watcher.Errors:
