@@ -1,6 +1,7 @@
 build:
   image: golang
   commands:
+    - apt-get install libreadline-dev
     - go get
     - go build
     - go test
