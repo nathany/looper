@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"github.com/nathany/looper/gat"
+	"github.com/xyproto/recwatch"
 )
 
 type Runner interface {
@@ -15,11 +16,11 @@ type Runner interface {
 
 func EventLoop(runner Runner, debug bool) {
 	commands := CommandParser()
-	watcher, err := NewRecursiveWatcher("./")
+	watcher, err := recwatch.NewRecursiveWatcher("./")
 	if err != nil {
 		log.Fatal(err)
 	}
-	watcher.Run(debug)
+	Run(watcher, debug)
 	defer watcher.Close()
 
 out:
