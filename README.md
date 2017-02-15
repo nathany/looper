@@ -34,6 +34,12 @@ Red Hat-based systems:
 sudo yum install readline-devel
 ```
 
+If you are on Ubuntu, you'll ned the readline development headers:
+
+```console
+sudo apt-get install libreadline-dev
+```
+
 To install Looper, or to update your installation, run:
 
 ``` console
