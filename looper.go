@@ -4,6 +4,7 @@ package main
 import (
 	"flag"
 	"log"
+	"strings"
 
 	"github.com/nathany/looper/gat"
 )
@@ -44,12 +45,14 @@ out:
 
 func main() {
 	var tags string
+	var testArgs string
 	var debug bool
+	flag.StringVar(&testArgs, "testArgs", "", "List of test args")
 	flag.StringVar(&tags, "tags", "", "a list of build tags for testing.")
 	flag.BoolVar(&debug, "debug", false, "adds additional logging")
 	flag.Parse()
 
-	runner := gat.Run{Tags: tags}
+	runner := gat.Run{Tags: tags, TestArgs: strings.Split(testArgs, " ")}
 
 	Header()
 	if debug {
