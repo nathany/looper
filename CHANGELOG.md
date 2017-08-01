@@ -2,6 +2,11 @@
 
 Roadmap & voting at the public [Trello board](https://trello.com/b/VvblYiSE).
 
+## v0.3.4 / 2017-08-01
+
+* Add support for passing test command arguments `looper -testArgs "-race -v"`
+* Fix capturing of error output in test.
+
 ## v0.3.3 / 2015-08-23
 
 * Skip vendor folder on full test run when GO15VENDOREXPERIMENT is set.
