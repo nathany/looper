@@ -42,7 +42,7 @@ func UnknownCommand(command string) {
 
 const CSI = "\x1b["
 
-// remove from the screen anything that's been typed
+// ClearPrompt removes from the screen anything that's been typed
 // from github.com/kierdavis/ansi
 func ClearPrompt() {
 	fmt.Printf("%s2K", CSI)     // clear line
