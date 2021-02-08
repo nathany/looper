@@ -44,7 +44,16 @@ Then run `looper` in your project folder:
 
 ``` console
 $ looper
-Looper 0.3.3 is watching your files
+Looper 0.3.4 is watching your files
+Type help for help.
+
+Watching path ./
+```
+
+To run with test specific test arguments:
+``` console
+$ looper -testArgs "-race -v"
+Looper 0.3.4 is watching your files
 Type help for help.
 
 Watching path ./

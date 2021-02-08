@@ -7,7 +7,7 @@ import (
 )
 
 func Header() {
-	fmt.Println(ansicolor.Cyan("Looper 0.3.3 is watching your files"))
+	fmt.Println(ansicolor.Cyan("Looper 0.3.4 is watching your files"))
 	fmt.Println("Type " + ansicolor.Magenta("help") + " for help.\n")
 }
 
