@@ -12,7 +12,8 @@ import (
 var IgnoreVendor = (os.Getenv("GO15VENDOREXPERIMENT") == "1")
 
 type Run struct {
-	Tags string
+	Tags    string
+	Command string
 }
 
 func (run Run) RunAll() {
@@ -39,7 +40,7 @@ func (run Run) goTest(pkgs ...string) {
 	}
 	args = append(args, pkgs...)
 
-	command := "go"
+	command := run.Command
 
 	if _, err := os.Stat("Godeps/Godeps.json"); err == nil {
 		args = append([]string{"go"}, args...)
